@@ -52,7 +52,7 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 	public async Task<(List<CashBooks> list, int totalPages, int page)> GetAll(int page)
 	{
 		var result = await _cashBookRepository.GetAll(page);
-		if (result.list == null)
+		if (result.list.Count == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
@@ -63,7 +63,7 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 	public async Task<List<CashBooks>> GetByOriginId(Guid id)
 	{
 		var result = await _cashBookRepository.GetByOriginId(id);
-		if (result == null)
+		if (result.Count == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
