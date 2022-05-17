@@ -40,7 +40,7 @@ public class ApplicationCashBookService : IApplicationCashBookService
 
 	public async Task<PagesCashBookDto> GetAll(int page)
 	{
-		var result = _cashBookService.GetAll(page).Result;
+		var result = await _cashBookService.GetAll(page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<CashBookDto>>(result.list);
