@@ -32,7 +32,7 @@ public class ApplicationDocumentService : IApplicationDocumentService
 
 	public async Task<PagesDocumentDto> GetAll(int page)
 	{
-		var result = _documentService.GetAll(page).Result;
+		var result = await _documentService.GetAll(page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<DocumentDto>>(result.list);
