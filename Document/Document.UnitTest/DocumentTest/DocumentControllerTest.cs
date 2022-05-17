@@ -7,6 +7,7 @@ using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
 using Xunit;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Document.UnitTest.DocumentTest;
 
@@ -38,7 +39,7 @@ public class DocumentControllerTest
 		var result = _mapper.Map<DocumentDto>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.Add(result));
+		application.Setup(x => x.AddAsync(result));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -46,7 +47,7 @@ public class DocumentControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.Add(It.IsAny<DocumentDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<DocumentDto>()), Times.Once);
 	}
 
 	[Fact]
@@ -54,7 +55,7 @@ public class DocumentControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.GetAll(1));
+		application.Setup(x => x.GetAllAsync(1));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -62,7 +63,7 @@ public class DocumentControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAll(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1), Times.Once);
 	}
 
 	[Fact]
@@ -75,7 +76,7 @@ public class DocumentControllerTest
 		var result = _mapper.Map<DocumentUpdateDto>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.Update(result));
+		application.Setup(x => x.UpdateAsync(result));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -83,7 +84,7 @@ public class DocumentControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.Update(It.IsAny<DocumentUpdateDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<DocumentUpdateDto>()), Times.Once);
 	}
 
 	[Fact]
@@ -96,7 +97,7 @@ public class DocumentControllerTest
 		var result = _mapper.Map<DocumentPatchDto>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.Patch(result));
+		application.Setup(x => x.PatchAsync(result));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -104,7 +105,7 @@ public class DocumentControllerTest
 		await controller.Patch(result);
 
 		// Assert
-		application.Verify(x => x.Patch(It.IsAny<DocumentPatchDto>()), Times.Once);
+		application.Verify(x => x.PatchAsync(It.IsAny<DocumentPatchDto>()), Times.Once);
 	}
 
 	[Fact]
@@ -117,7 +118,7 @@ public class DocumentControllerTest
 		var result = _mapper.Map<DocumentUpdateDto>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.Remove(result.Id));
+		application.Setup(x => x.RemoveAsync(result.Id));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -125,7 +126,7 @@ public class DocumentControllerTest
 		await controller.Delete(result.Id);
 
 		// Assert
-		application.Verify(x => x.Remove(result.Id), Times.Once);
+		application.Verify(x => x.RemoveAsync(result.Id), Times.Once);
 	}
 
 	[Fact]
@@ -138,7 +139,7 @@ public class DocumentControllerTest
 		var result = _mapper.Map<DocumentUpdateDto>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.GetById(result.Id));
+		application.Setup(x => x.GetByIdAsync(result.Id));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -146,6 +147,6 @@ public class DocumentControllerTest
 		await controller.Get(result.Id);
 
 		// Assert
-		application.Verify(x => x.GetById(result.Id), Times.Once);
+		application.Verify(x => x.GetByIdAsync(result.Id), Times.Once);
 	}
 }

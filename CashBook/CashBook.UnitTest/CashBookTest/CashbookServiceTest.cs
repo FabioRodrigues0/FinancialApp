@@ -27,15 +27,15 @@ public class CashBookServiceTest
 		var repository = Mocker.GetMock<ICashBookRepository>();
 		int totalPages = 1, page = 1;
 		var list = (cashBookFaker.listModel, totalPages, page); ;
-		repository.Setup(x => x.GetAll(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
 
 		var service = Mocker.CreateInstance<CashBookService>();
 
 		//Act
-		await service.GetAll(1);
+		await service.GetAllAsync(1);
 
 		//Assert
-		repository.Verify(x => x.GetAll(1), Times.Once);
+		repository.Verify(x => x.GetAllAsync(1), Times.Once);
 	}
 
 	[Fact]
@@ -46,15 +46,15 @@ public class CashBookServiceTest
 		var cashbook = cashBookFaker.cashbook;
 
 		var repository = Mocker.GetMock<ICashBookRepository>();
-		repository.Setup(x => x.GetById(cashbook.Id));
+		repository.Setup(x => x.GetByIdAsync(cashbook.Id));
 
 		var service = Mocker.CreateInstance<CashBookService>();
 
 		//Act
-		await service.GetById(cashbook.Id);
+		await service.GetByIdAsync(cashbook.Id);
 
 		//Assert
-		repository.Verify(x => x.GetById(cashbook.Id), Times.Once);
+		repository.Verify(x => x.GetByIdAsync(cashbook.Id), Times.Once);
 	}
 
 	[Fact]
@@ -70,7 +70,7 @@ public class CashBookServiceTest
 		var service = Mocker.CreateInstance<CashBookService>();
 
 		//Act
-		await service.GetByOriginId(cashbook.OriginId);
+		await service.GetByOriginIdAsync(cashbook.OriginId);
 
 		//Assert
 		repository.Verify(x => x.GetByOriginId(cashbook.OriginId), Times.Once);
@@ -87,17 +87,17 @@ public class CashBookServiceTest
 		var cashbook = cashBookFaker.cashbook;
 
 		var repository = Mocker.GetMock<ICashBookRepository>();
-		repository.Setup(x => x.Add(cashbook));
+		repository.Setup(x => x.AddAsync(cashbook));
 
 		var service = Mocker.CreateInstance<CashBookService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Add(cashbook);
+		await service.AddAsync(cashbook);
 
 		//Assert
-		repository.Verify(x => x.Add(It.IsAny<CashBooks>()), Times.Once);
+		repository.Verify(x => x.AddAsync(It.IsAny<CashBooks>()), Times.Once);
 	}
 
 	[Fact]
@@ -111,8 +111,8 @@ public class CashBookServiceTest
 		var cashbook = cashBookFaker.cashbook;
 
 		var repository = Mocker.GetMock<ICashBookRepository>();
-		repository.Setup(x => x.GetById(cashbook.Id)).ReturnsAsync(cashbook);
-		repository.Setup(x => x.Update(cashbook));
+		repository.Setup(x => x.GetByIdAsync(cashbook.Id)).ReturnsAsync(cashbook);
+		repository.Setup(x => x.UpdateAsync(cashbook));
 
 		var test = repository.Setups;
 
@@ -121,9 +121,9 @@ public class CashBookServiceTest
 		#endregion Vars
 
 		//Act
-		await service.Update(cashbook);
+		await service.UpdateAsync(cashbook);
 
 		//Assert
-		repository.Verify(x => x.Update(It.IsAny<CashBooks>()), Times.Once);
+		repository.Verify(x => x.UpdateAsync(It.IsAny<CashBooks>()), Times.Once);
 	}
 }

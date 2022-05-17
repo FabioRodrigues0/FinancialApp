@@ -39,15 +39,15 @@ public class DocumentApplicationServiceTest
 		var list = (documentFaker.listModel, totalPages, page); ;
 
 		var repository = _mocker.GetMock<IDocumentService>();
-		repository.Setup(x => x.GetAll(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ApplicationDocumentService>();
 
 		//Act
-		await service.GetAll(page);
+		await service.GetAllAsync(page);
 
 		//Assert
-		repository.Verify(x => x.GetAll(page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(page), Times.Once);
 	}
 
 	[Fact]
@@ -58,15 +58,15 @@ public class DocumentApplicationServiceTest
 		var document = documentFaker.document;
 
 		var repository = _mocker.GetMock<IDocumentService>();
-		repository.Setup(x => x.GetById(document.Id));
+		repository.Setup(x => x.GetByIdAsync(document.Id));
 
 		var service = _mocker.CreateInstance<ApplicationDocumentService>();
 
 		//Act
-		await service.GetById(document.Id);
+		await service.GetByIdAsync(document.Id);
 
 		//Assert
-		repository.Verify(x => x.GetById(document.Id), Times.Once);
+		repository.Verify(x => x.GetByIdAsync(document.Id), Times.Once);
 	}
 
 	[Fact]
@@ -82,17 +82,17 @@ public class DocumentApplicationServiceTest
 		var result = _mapper.Map<DocumentDto>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
-		repository.Setup(x => x.Add(document));
+		repository.Setup(x => x.AddAsync(document));
 
 		var service = _mocker.CreateInstance<ApplicationDocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Add(result);
+		await service.AddAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Add(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.AddAsync(It.IsAny<Documents>()), Times.Once);
 	}
 
 	[Fact]
@@ -108,17 +108,17 @@ public class DocumentApplicationServiceTest
 		var result = _mapper.Map<DocumentUpdateDto>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
-		repository.Setup(x => x.Update(document));
+		repository.Setup(x => x.UpdateAsync(document));
 
 		var service = _mocker.CreateInstance<ApplicationDocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Update(result);
+		await service.UpdateAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Update(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.UpdateAsync(It.IsAny<Documents>()), Times.Once);
 	}
 
 	[Fact]
@@ -134,16 +134,16 @@ public class DocumentApplicationServiceTest
 		var result = _mapper.Map<DocumentPatchDto>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
-		repository.Setup(x => x.Patch(document));
+		repository.Setup(x => x.PatchAsync(document));
 
 		var service = _mocker.CreateInstance<ApplicationDocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Patch(result);
+		await service.PatchAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Patch(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.PatchAsync(It.IsAny<Documents>()), Times.Once);
 	}
 }

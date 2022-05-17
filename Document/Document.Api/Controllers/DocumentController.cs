@@ -37,7 +37,7 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Get([FromRoute] int page)
 	{
 		_logger.LogInformation("Begin Request for Documents {page}", page);
-		return ServiceResponse(await _applicationDocumentService.GetAll(page));
+		return ServiceResponse(await _applicationDocumentService.GetAllAsync(page));
 	}
 
 	/// <summary>
@@ -56,7 +56,7 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Get([FromRoute] Guid id)
 	{
 		_logger.LogInformation("Begin Request for Documents with Id = {id}", id);
-		return ServiceResponse(await _applicationDocumentService.GetById(id));
+		return ServiceResponse(await _applicationDocumentService.GetByIdAsync(id));
 	}
 
 	/// <summary>
@@ -75,7 +75,7 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Post([FromBody] DocumentDto obj)
 	{
 		_logger.LogInformation("Begin Request for Create a Document({obj})", obj);
-		return ServiceResponse(await _applicationDocumentService.Add(obj));
+		return ServiceResponse(await _applicationDocumentService.AddAsync(obj));
 	}
 
 	/// <summary>
@@ -94,7 +94,7 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Put([FromBody] DocumentUpdateDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update a Document({obj})", obj);
-		return ServiceResponse(await _applicationDocumentService.Update(obj));
+		return ServiceResponse(await _applicationDocumentService.UpdateAsync(obj));
 	}
 
 	/// <summary>
@@ -111,7 +111,7 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Delete([FromRoute] Guid id)
 	{
 		_logger.LogInformation("Begin Request for Delete Document with Id = {id}", id);
-		return ServiceResponse(await _applicationDocumentService.Remove(id));
+		return ServiceResponse(await _applicationDocumentService.RemoveAsync(id));
 	}
 
 	/// <summary>
@@ -130,6 +130,6 @@ public class DocumentController : ApiControllerBase
 	public async Task<IActionResult> Patch([FromBody] DocumentPatchDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update Paid from {obj}", obj);
-		return ServiceResponse(await _applicationDocumentService.Patch(obj));
+		return ServiceResponse(await _applicationDocumentService.PatchAsync(obj));
 	}
 }

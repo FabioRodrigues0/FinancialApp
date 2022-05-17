@@ -34,14 +34,14 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		_buyRequestProductService = buyRequestProductService;
 	}
 
-	public override async Task<BuyRequests> Add(BuyRequests model)
+	public override async Task<BuyRequests> AddAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
 		//AddNotification("Erro de negocio");
 		if (!IsValidOperation)
 			return null;
-		var result = await _buyRequestRepository.Add(model);
+		var result = await _buyRequestRepository.AddAsync(model);
 		if (Status.Finished.Equals(model.Status))
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
@@ -50,16 +50,16 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return result;
 	}
 
-	public override async Task<BuyRequests> Update(BuyRequests model)
+	public override async Task<BuyRequests> UpdateAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
 		if (!IsValidOperation)
 			return null;
-		var result = await _buyRequestRepository.GetById(model.Id);
+		var result = await _buyRequestRepository.GetByIdAsync(model.Id);
 		if (result.Status == Status.Finished && model.Status != Status.Finished)
 			AddNotification("Request mark as Finished can't be modified");
-		var response = await _buyRequestRepository.Update(model);
+		var response = await _buyRequestRepository.UpdateAsync(model);
 		if (response.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
@@ -68,16 +68,16 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return response;
 	}
 
-	public override async Task<BuyRequests> Patch(BuyRequests model)
+	public override async Task<BuyRequests> PatchAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
 		if (!IsValidOperation)
 			return null;
-		var result = await _buyRequestRepository.GetById(model.Id);
+		var result = await _buyRequestRepository.GetByIdAsync(model.Id);
 		if (result.Status == Status.Finished && model.Status != Status.Finished)
 			AddNotification("Request mark as Finished can't be modified");
-		var response = await _buyRequestRepository.Patch(model);
+		var response = await _buyRequestRepository.PatchAsync(model);
 		if (model.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
@@ -87,13 +87,13 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return response;
 	}
 
-	public override async Task<bool> Remove(Guid id)
+	public override async Task<bool> RemoveAsync(Guid id)
 	{
 		_logger.LogInformation("Checks if there are BuyRequests with Id = {id}", id);
-		var obj = await _buyRequestRepository.GetById(id);
+		var obj = await _buyRequestRepository.GetByIdAsync(id);
 		if (obj == null)
 			return true;
-		var result = await _buyRequestRepository.Remove(obj);
+		var result = await _buyRequestRepository.RemoveAsync(obj);
 		if (obj.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(result);
@@ -102,10 +102,10 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return result;
 	}
 
-	public async Task<(List<BuyRequests> list, int totalPages, int page)> GetAll(int page)
+	public override async Task<(List<BuyRequests> list, int totalPages, int page)> GetAllAsync(int page)
 	{
-		var result = await _buyRequestRepository.GetAll(page);
-		if (result.list.Count == 0)
+		var result = await _buyRequestRepository.GetAllAsync(page);
+		if (result.list == null)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
@@ -113,7 +113,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return result;
 	}
 
-	public async Task<BuyRequests> GetByClientId(Guid id)
+	public async Task<BuyRequests> GetByClientIdAsync(Guid id)
 	{
 		var result = await _buyRequestRepository.GetByClientIdAsync(id);
 		if (result == null)
@@ -124,9 +124,9 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return result;
 	}
 
-	public override async Task<BuyRequests> GetById(Guid id)
+	public override async Task<BuyRequests> GetByIdAsync(Guid id)
 	{
-		var result = await _buyRequestRepository.GetById(id);
+		var result = await _buyRequestRepository.GetByIdAsync(id);
 		if (result == null)
 		{
 			_logger.LogInformation("No Content");

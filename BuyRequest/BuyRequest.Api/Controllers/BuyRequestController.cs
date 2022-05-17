@@ -39,7 +39,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Get([FromRoute] int page)
 	{
 		_logger.LogInformation("Begin Request for BuyRequests {page}", page);
-		return ServiceResponse(await _applicationBuyRequestService.GetAll(page));
+		return ServiceResponse(await _applicationBuyRequestService.GetAllAsync(page));
 	}
 
 	/// <summary>
@@ -58,7 +58,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Get([FromRoute] Guid id)
 	{
 		_logger.LogInformation("Begin Request for BuyRequests with Id = {id}", id);
-		return ServiceResponse(await _applicationBuyRequestService.GetById(id));
+		return ServiceResponse(await _applicationBuyRequestService.GetByIdAsync(id));
 	}
 
 	/// <summary>
@@ -77,7 +77,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> GetByClientId([FromRoute] Guid id)
 	{
 		_logger.LogInformation("Begin Request for BuyRequests with ClientId = {id}", id);
-		return ServiceResponse(await _applicationBuyRequestService.GetByClientId(id));
+		return ServiceResponse(await _applicationBuyRequestService.GetByClientIdAsync(id));
 	}
 
 	/// <summary>
@@ -96,7 +96,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Post([FromBody] BuyRequestDto obj)
 	{
 		_logger.LogInformation("Begin Request for Create a BuyRequests({obj})", obj);
-		return ServiceResponse(await _applicationBuyRequestService.Add(obj));
+		return ServiceResponse(await _applicationBuyRequestService.AddAsync(obj));
 	}
 
 	/// <summary>
@@ -115,7 +115,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Put([FromBody] BuyRequestUpdateDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update a BuyRequests({obj})", obj);
-		return ServiceResponse(await _applicationBuyRequestService.Update(obj));
+		return ServiceResponse(await _applicationBuyRequestService.UpdateAsync(obj));
 	}
 
 	/// <summary>
@@ -134,7 +134,7 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Patch([FromBody] BuyRequestPatchDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update Status from {obj}", obj);
-		return ServiceResponse(await _applicationBuyRequestService.Patch(obj));
+		return ServiceResponse(await _applicationBuyRequestService.PatchAsync(obj));
 	}
 
 	/// <summary>
@@ -153,6 +153,6 @@ public class BuyRequestController : ApiControllerBase
 	public async Task<IActionResult> Delete([FromRoute] Guid id)
 	{
 		_logger.LogInformation("Begin Request for Delete BuyRequests with Id = {id}", id);
-		return ServiceResponse(await _applicationBuyRequestService.Remove(id));
+		return ServiceResponse(await _applicationBuyRequestService.RemoveAsync(id));
 	}
 }

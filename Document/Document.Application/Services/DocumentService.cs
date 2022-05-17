@@ -33,7 +33,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		_mapper = mapper;
 	}
 
-	public override async Task<Documents> Add(Documents model)
+	public override async Task<Documents> AddAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
@@ -41,7 +41,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		if (!IsValidOperation)
 			return null;
 
-		var obj = await _documentRepository.Add(model);
+		var obj = await _documentRepository.AddAsync(model);
 		if (model.Paid)
 		{
 			var cashbook = _mapper.Map<CashBookDto>(obj);
@@ -49,7 +49,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		return obj;
 	}
 
-	public override async Task<Documents> Update(Documents model)
+	public override async Task<Documents> UpdateAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
@@ -57,7 +57,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		if (!IsValidOperation)
 			return null;
 
-		var obj = await _documentRepository.Update(model);
+		var obj = await _documentRepository.UpdateAsync(model);
 		if (model.Paid)
 		{
 			var cashBook = _mapper.Map<CashBookDto>(obj);
@@ -65,14 +65,14 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		return obj;
 	}
 
-	public override async Task<Documents> Patch(Documents model)
+	public override async Task<Documents> PatchAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
 		ValidateEntity(model);
-		var result = await _documentRepository.GetById(model.Id);
+		var result = await _documentRepository.GetByIdAsync(model.Id);
 		if (!IsValidOperation)
 			return null;
-		var obj = await _documentRepository.Patch(model);
+		var obj = await _documentRepository.PatchAsync(model);
 		if (model.Paid)
 		{
 			var cashBook = _mapper.Map<CashBookDto>(obj);
@@ -81,13 +81,13 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		return obj;
 	}
 
-	public override async Task<bool> Remove(Guid id)
+	public override async Task<bool> RemoveAsync(Guid id)
 	{
 		_logger.LogInformation("Checks if there are Docuemnt with Id = {id}", id);
-		var obj = await _documentRepository.GetById(id);
+		var obj = await _documentRepository.GetByIdAsync(id);
 		if (obj == null)
 			return true;
-		var result = await _documentRepository.Remove(id);
+		var result = await _documentRepository.RemoveAsync(id);
 		if (obj.Paid)
 		{
 			var cashBook = _mapper.Map<CashBookDto>(obj);
@@ -96,10 +96,10 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		return result;
 	}
 
-	public async Task<(List<Documents> list, int totalPages, int page)> GetAll(int page)
+	public async Task<(List<Documents> list, int totalPages, int page)> GetAllAsync(int page)
 	{
-		var result = await _documentRepository.GetAll(page);
-		if (result.list.Count == 0)
+		var result = await _documentRepository.GetAllAsync(page);
+		if (result.list == null)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
@@ -107,9 +107,9 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		return result;
 	}
 
-	public override async Task<Documents> GetById(Guid id)
+	public override async Task<Documents> GetByIdAsync(Guid id)
 	{
-		var result = await _documentRepository.GetById(id);
+		var result = await _documentRepository.GetByIdAsync(id);
 		if (result == null)
 		{
 			_logger.LogInformation("No Content");

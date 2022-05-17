@@ -27,15 +27,15 @@ public class DocumentServiceTest
 		var list = (documentFaker.listModel, totalPages, page); ;
 
 		var repository = _mocker.GetMock<IDocumentRepository>();
-		repository.Setup(x => x.GetAll(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<DocumentService>();
 
 		//Act
-		await service.GetAll(1);
+		await service.GetAllAsync(1);
 
 		//Assert
-		repository.Verify(x => x.GetAll(1), Times.Once);
+		repository.Verify(x => x.GetAllAsync(1), Times.Once);
 	}
 
 	[Fact]
@@ -46,15 +46,15 @@ public class DocumentServiceTest
 		var document = documentFaker.document;
 
 		var repository = _mocker.GetMock<IDocumentRepository>();
-		repository.Setup(x => x.GetById(document.Id));
+		repository.Setup(x => x.GetByIdAsync(document.Id));
 
 		var service = _mocker.CreateInstance<DocumentService>();
 
 		//Act
-		await service.GetById(document.Id);
+		await service.GetByIdAsync(document.Id);
 
 		//Assert
-		repository.Verify(x => x.GetById(document.Id), Times.Once);
+		repository.Verify(x => x.GetByIdAsync(document.Id), Times.Once);
 	}
 
 	[Fact]
@@ -68,17 +68,17 @@ public class DocumentServiceTest
 		var document = documentFaker.document;
 
 		var repository = _mocker.GetMock<IDocumentRepository>();
-		repository.Setup(x => x.Add(document));
+		repository.Setup(x => x.AddAsync(document));
 
 		var service = _mocker.CreateInstance<DocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Add(document);
+		await service.AddAsync(document);
 
 		//Assert
-		repository.Verify(x => x.Add(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.AddAsync(It.IsAny<Documents>()), Times.Once);
 	}
 
 	[Fact]
@@ -92,17 +92,17 @@ public class DocumentServiceTest
 		var document = documentFaker.document;
 
 		var repository = _mocker.GetMock<IDocumentRepository>();
-		repository.Setup(x => x.Update(document));
+		repository.Setup(x => x.UpdateAsync(document));
 
 		var service = _mocker.CreateInstance<DocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Update(document);
+		await service.UpdateAsync(document);
 
 		//Assert
-		repository.Verify(x => x.Update(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.UpdateAsync(It.IsAny<Documents>()), Times.Once);
 	}
 
 	[Fact]
@@ -116,17 +116,17 @@ public class DocumentServiceTest
 		var document = documentFaker.document;
 
 		var repository = _mocker.GetMock<IDocumentRepository>();
-		var repositoryId = repository.Setup(x => x.GetById(document.Id)).ReturnsAsync(document);
-		repository.Setup(x => x.Patch(document)).ReturnsAsync(document);
+		var repositoryId = repository.Setup(x => x.GetByIdAsync(document.Id)).ReturnsAsync(document);
+		repository.Setup(x => x.PatchAsync(document)).ReturnsAsync(document);
 
 		var service = _mocker.CreateInstance<DocumentService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Patch(document);
+		await service.PatchAsync(document);
 
 		//Assert
-		repository.Verify(x => x.Patch(It.IsAny<Documents>()), Times.Once);
+		repository.Verify(x => x.PatchAsync(It.IsAny<Documents>()), Times.Once);
 	}
 }

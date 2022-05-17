@@ -20,27 +20,27 @@ public class ApplicationCashBookService : IApplicationCashBookService
 		_mapper = mapper;
 	}
 
-	public async Task<CashBooks> Add(CashBookDto obj)
+	public async Task<CashBooks> AddAsync(CashBookDto obj)
 	{
 		var result = _mapper.Map<CashBooks>(obj);
-		return await _cashBookService.Add(result);
+		return await _cashBookService.AddAsync(result);
 	}
 
-	public async Task<CashBookDto> GetById(Guid id)
+	public async Task<CashBookDto> GetByIdAsync(Guid id)
 	{
-		var cashBooks = await _cashBookService.GetById(id);
+		var cashBooks = await _cashBookService.GetByIdAsync(id);
 		return _mapper.Map<CashBookDto>(cashBooks);
 	}
 
-	public async Task<List<CashBookDto>> GetByOriginId(Guid id)
+	public async Task<List<CashBookDto>> GetByOriginIdAsync(Guid id)
 	{
-		var cashBooks = await _cashBookService.GetByOriginId(id);
+		var cashBooks = await _cashBookService.GetByOriginIdAsync(id);
 		return _mapper.Map<List<CashBookDto>>(cashBooks);
 	}
 
-	public async Task<PagesCashBookDto> GetAll(int page)
+	public async Task<PagesCashBookDto> GetAllAsync(int page)
 	{
-		var result = await _cashBookService.GetAll(page);
+		var result = await _cashBookService.GetAllAsync(page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<CashBookDto>>(result.list);
@@ -48,9 +48,9 @@ public class ApplicationCashBookService : IApplicationCashBookService
 		return _mapper.Map<PagesCashBookDto>(newResult);
 	}
 
-	public async Task<CashBooks> Update(CashBookUpdateDto obj)
+	public async Task<CashBooks> UpdateAsync(CashBookUpdateDto obj)
 	{
 		var result = _mapper.Map<CashBooks>(obj);
-		return await _cashBookService.Update(result);
+		return await _cashBookService.UpdateAsync(result);
 	}
 }

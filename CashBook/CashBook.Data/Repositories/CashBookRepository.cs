@@ -24,10 +24,10 @@ public class CashBookRepository : RepositoryBase<CashBooks>, ICashBookRepository
 		return dbSet.Where(c => c.Id == id).FirstOrDefault();
 	}
 
-	public override async Task<CashBooks> Update(CashBooks obj)
+	public override async Task<CashBooks> UpdateAsync(CashBooks obj)
 	{
 		_logger.LogInformation("Call Update on {obj}", obj);
-		return await base.Update(obj);
+		return await base.UpdateAsync(obj);
 	}
 
 	public async Task<List<CashBooks>> GetByOriginId(Guid id)

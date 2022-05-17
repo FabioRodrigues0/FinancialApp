@@ -2,17 +2,17 @@
 
 public interface IServiceBase<T> where T : EntityBase<T>
 {
-	Task<T> Add(T obj);
+	Task<T> AddAsync(T obj);
 
-	Task<T> Update(T obj);
+	Task<T> UpdateAsync(T obj);
 
-	Task<bool> Remove(Guid id);
+	Task<bool> RemoveAsync(Guid id);
 
-	Task<T> Patch(T obj);
+	Task<T> PatchAsync(T obj);
 
-	Task<(List<T> list, int totalPages, int page)> GetAll(int page);
+	Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page);
 
-	Task<T> GetById(Guid id);
+	Task<T> GetByIdAsync(Guid id);
 
 	bool ValidateEntity(T domain);
 

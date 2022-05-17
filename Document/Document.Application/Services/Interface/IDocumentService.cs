@@ -6,5 +6,4 @@ namespace Document.Application.Services.Interface;
 
 public interface IDocumentService : IServiceBase<Documents>
 {
-	Task<(List<Documents> list, int totalPages, int page)> GetAll(int page);
 }

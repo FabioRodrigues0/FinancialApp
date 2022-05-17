@@ -5,15 +5,15 @@ namespace Document.Application.Application.Interface;
 
 public interface IApplicationDocumentService
 {
-	Task<Documents> Add(DocumentDto obj);
+	Task<Documents> AddAsync(DocumentDto obj);
 
-	Task<DocumentDto> GetById(Guid id);
+	Task<DocumentDto> GetByIdAsync(Guid id);
 
-	Task<PagesDocumentDto> GetAll(int page);
+	Task<PagesDocumentDto> GetAllAsync(int page);
 
-	Task<Documents> Update(DocumentUpdateDto obj);
+	Task<Documents> UpdateAsync(DocumentUpdateDto obj);
 
-	Task<Documents> Patch(DocumentPatchDto obj);
+	Task<Documents> PatchAsync(DocumentPatchDto obj);
 
-	Task<bool> Remove(Guid id);
+	Task<bool> RemoveAsync(Guid id);
 }

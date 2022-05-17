@@ -37,7 +37,7 @@ public class CashBookController : ApiControllerBase
 	public async Task<IActionResult> Get(int page)
 	{
 		_logger.LogInformation("Begin Request for CashBooks {page}", page);
-		return ServiceResponse(await _applicationCashBookService.GetAll(page));
+		return ServiceResponse(await _applicationCashBookService.GetAllAsync(page));
 	}
 
 	/// <summary>
@@ -56,7 +56,7 @@ public class CashBookController : ApiControllerBase
 	public async Task<IActionResult> Get(Guid id)
 	{
 		_logger.LogInformation("Begin Request for CashBook with Id = {id}", id);
-		return ServiceResponse(await _applicationCashBookService.GetById(id));
+		return ServiceResponse(await _applicationCashBookService.GetByIdAsync(id));
 	}
 
 	/// <summary>
@@ -75,7 +75,7 @@ public class CashBookController : ApiControllerBase
 	public async Task<IActionResult> GetOriginId(Guid id)
 	{
 		_logger.LogInformation("Begin Request for CashBook with OriginId = {id}", id);
-		return ServiceResponse(await _applicationCashBookService.GetByOriginId(id));
+		return ServiceResponse(await _applicationCashBookService.GetByOriginIdAsync(id));
 	}
 
 	/// <summary>
@@ -94,7 +94,7 @@ public class CashBookController : ApiControllerBase
 	public async Task<IActionResult> Post([FromBody] CashBookDto obj)
 	{
 		_logger.LogInformation("Begin Request for Create a CashBook({obj})", obj);
-		return ServiceResponse(await _applicationCashBookService.Add(obj));
+		return ServiceResponse(await _applicationCashBookService.AddAsync(obj));
 	}
 
 	/// <summary>
@@ -113,6 +113,6 @@ public class CashBookController : ApiControllerBase
 	public async Task<IActionResult> Put([FromBody] CashBookUpdateDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update a CashBook({obj})", obj);
-		return ServiceResponse(await _applicationCashBookService.Update(obj));
+		return ServiceResponse(await _applicationCashBookService.UpdateAsync(obj));
 	}
 }

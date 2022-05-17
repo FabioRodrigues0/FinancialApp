@@ -29,7 +29,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		Include = include;
 	}
 
-	public virtual async Task<T> Add(T obj)
+	public virtual async Task<T> AddAsync(T obj)
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return obj;
 	}
 
-	public virtual async Task<(List<T> list, int totalPages, int page)> GetAll(int page)
+	public virtual async Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page)
 	{
 		const int pageResults = 10;
 
@@ -62,7 +62,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return (result, totalPages, page);
 	}
 
-	public virtual async Task<T> GetById(Guid id)
+	public virtual async Task<T> GetByIdAsync(Guid id)
 	{
 		var query = dbSet
 			.Where(br => br.Id == id)
@@ -75,7 +75,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return await query.FirstOrDefaultAsync();
 	}
 
-	public virtual async Task<bool> Remove(Guid id)
+	public virtual async Task<bool> RemoveAsync(Guid id)
 	{
 		var obj = await dbSet
 			.Where(x => x.Id == id)
@@ -87,7 +87,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return result != null;
 	}
 
-	public virtual async Task<bool> Remove(T obj)
+	public virtual async Task<bool> RemoveAsync(T obj)
 	{
 		_logger.LogInformation("Call a Request to Delete {obj}", obj);
 		var result = dbSet.Remove(obj);
@@ -95,7 +95,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return result != null;
 	}
 
-	public virtual async Task<T> Update(T obj)
+	public virtual async Task<T> UpdateAsync(T obj)
 	{
 		_logger.LogInformation("Call Update on {obj}", obj);
 		dbSet.Update(obj);
@@ -103,7 +103,7 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase<T>
 		return obj;
 	}
 
-	public virtual async Task<T> Patch(T obj)
+	public virtual async Task<T> PatchAsync(T obj)
 	{
 		dbSet.Update(obj);
 		await _dataContext.SaveChangesAsync();

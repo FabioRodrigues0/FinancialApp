@@ -5,17 +5,17 @@ namespace BuyRequest.Application.Application.Interface;
 
 public interface IApplicationBuyRequestService
 {
-	Task<BuyRequests> Add(BuyRequestDto obj);
+	Task<BuyRequests> AddAsync(BuyRequestDto obj);
 
-	Task<BuyRequestDto> GetById(Guid id);
+	Task<BuyRequestDto> GetByIdAsync(Guid id);
 
-	Task<BuyRequestDto> GetByClientId(Guid id);
+	Task<BuyRequestDto> GetByClientIdAsync(Guid id);
 
-	Task<PagesBuyRequestDto> GetAll(int page);
+	Task<PagesBuyRequestDto> GetAllAsync(int page);
 
-	Task<BuyRequests> Update(BuyRequestUpdateDto obj);
+	Task<BuyRequests> UpdateAsync(BuyRequestUpdateDto obj);
 
-	Task<BuyRequests> Patch(BuyRequestPatchDto obj);
+	Task<BuyRequests> PatchAsync(BuyRequestPatchDto obj);
 
-	Task<bool> Remove(Guid id);
+	Task<bool> RemoveAsync(Guid id);
 }
