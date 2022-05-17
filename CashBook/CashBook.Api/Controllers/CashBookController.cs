@@ -43,7 +43,7 @@ public class CashBookController : ApiControllerBase
 	/// <summary>
 	/// Gets CashBook in Database with ID indicated
 	/// </summary>
-	/// <returns>BuyRequest in Database with ID indicated</returns>
+	/// <returns>CashBook in Database with ID indicated</returns>
 	/// <response code="200">Success response</response>
 	/// <response code="204">Don't have a CashBook with ID indicated</response>
 	/// <response code="400">
@@ -112,7 +112,7 @@ public class CashBookController : ApiControllerBase
 	[ProducesResponseType(400)]
 	public async Task<IActionResult> Put([FromBody] CashBookUpdateDto obj)
 	{
-		_logger.LogInformation("Begin Request for Update a CashBook({ {obj} })", obj);
+		_logger.LogInformation("Begin Request for Update a CashBook({obj})", obj);
 		return ServiceResponse(await _applicationCashBookService.Update(obj));
 	}
 }
