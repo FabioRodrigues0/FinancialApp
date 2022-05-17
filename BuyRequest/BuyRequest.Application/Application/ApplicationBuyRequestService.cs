@@ -41,7 +41,7 @@ public class ApplicationBuyRequestService : IApplicationBuyRequestService
 
 	public async Task<PagesBuyRequestDto> GetAll(int page)
 	{
-		var result = _buyRequestService.GetAll(page).Result;
+		var result = await _buyRequestService.GetAll(page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<BuyRequestDto>>(result.list);
