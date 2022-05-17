@@ -99,7 +99,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 	public async Task<(List<Documents> list, int totalPages, int page)> GetAll(int page)
 	{
 		var result = await _documentRepository.GetAll(page);
-		if (result.list == null)
+		if (result.list.Count == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
