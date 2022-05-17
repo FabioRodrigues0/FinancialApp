@@ -105,7 +105,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 	public async Task<(List<BuyRequests> list, int totalPages, int page)> GetAll(int page)
 	{
 		var result = await _buyRequestRepository.GetAll(page);
-		if (result.list == null)
+		if (result.list.Count == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);
