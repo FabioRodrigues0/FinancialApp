@@ -5,13 +5,13 @@ namespace CashBook.Application.Application.Interface;
 
 public interface IApplicationCashBookService
 {
-	Task<CashBooks> Add(CashBookDto obj);
+	Task<CashBooks> AddAsync(CashBookDto obj);
 
-	Task<CashBookDto> GetById(Guid id);
+	Task<CashBookDto> GetByIdAsync(Guid id);
 
-	Task<List<CashBookDto>> GetByOriginId(Guid id);
+	Task<List<CashBookDto>> GetByOriginIdAsync(Guid id);
 
-	Task<PagesCashBookDto> GetAll(int page);
+	Task<PagesCashBookDto> GetAllAsync(int page);
 
-	Task<CashBooks> Update(CashBookUpdateDto obj);
+	Task<CashBooks> UpdateAsync(CashBookUpdateDto obj);
 }

@@ -20,34 +20,34 @@ public abstract class ServiceBase<T> : IServiceBase<T> where T : EntityBase<T>
 		_tEntityRepository = tEntityRepository;
 	}
 
-	public virtual async Task<T> Add(T obj)
+	public virtual async Task<T> AddAsync(T obj)
 	{
-		return await _tEntityRepository.Add(obj);
+		return await _tEntityRepository.AddAsync(obj);
 	}
 
-	public virtual async Task<T> GetById(Guid id)
+	public virtual async Task<T> GetByIdAsync(Guid id)
 	{
-		return await _tEntityRepository.GetById(id);
+		return await _tEntityRepository.GetByIdAsync(id);
 	}
 
-	public virtual async Task<(List<T> list, int totalPages, int page)> GetAll(int page)
+	public virtual async Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page)
 	{
-		return await _tEntityRepository.GetAll(page);
+		return await _tEntityRepository.GetAllAsync(page);
 	}
 
-	public virtual async Task<T> Update(T obj)
+	public virtual async Task<T> UpdateAsync(T obj)
 	{
-		return await _tEntityRepository.Update(obj);
+		return await _tEntityRepository.UpdateAsync(obj);
 	}
 
-	public virtual Task<T> Patch(T obj)
+	public virtual Task<T> PatchAsync(T obj)
 	{
-		return _tEntityRepository.Patch(obj);
+		return _tEntityRepository.PatchAsync(obj);
 	}
 
-	public virtual async Task<bool> Remove(Guid id)
+	public virtual async Task<bool> RemoveAsync(Guid id)
 	{
-		return await _tEntityRepository.Remove(id); ;
+		return await _tEntityRepository.RemoveAsync(id); ;
 	}
 
 	public bool ValidateEntity(T domain)

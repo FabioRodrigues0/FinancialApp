@@ -41,15 +41,15 @@ public class BuyRequestApplicationServiceTest
 		var list = (new List<BuyRequests>(), totalPages, page);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetAll(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		//Act
-		await service.GetAll(page);
+		await service.GetAllAsync(page);
 
 		//Assert
-		repository.Verify(x => x.GetAll(page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(page), Times.Once);
 	}
 
 	[Fact]
@@ -60,15 +60,15 @@ public class BuyRequestApplicationServiceTest
 		var buyRequest = buyRequestFaker.buyRequest;
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetById(buyRequest.Id));
+		repository.Setup(x => x.GetByIdAsync(buyRequest.Id));
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		//Act
-		await service.GetById(buyRequest.Id);
+		await service.GetByIdAsync(buyRequest.Id);
 
 		//Assert
-		repository.Verify(x => x.GetById(buyRequest.Id), Times.Once);
+		repository.Verify(x => x.GetByIdAsync(buyRequest.Id), Times.Once);
 	}
 
 	[Fact]
@@ -79,15 +79,15 @@ public class BuyRequestApplicationServiceTest
 		var buyRequest = buyRequestFaker.buyRequest;
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetById(buyRequest.Client));
+		repository.Setup(x => x.GetByIdAsync(buyRequest.Client));
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		//Act
-		await service.GetById(buyRequest.Client);
+		await service.GetByIdAsync(buyRequest.Client);
 
 		//Assert
-		repository.Verify(x => x.GetById(buyRequest.Client), Times.Once);
+		repository.Verify(x => x.GetByIdAsync(buyRequest.Client), Times.Once);
 	}
 
 	[Fact]
@@ -103,17 +103,17 @@ public class BuyRequestApplicationServiceTest
 		var result = _mapper.Map<BuyRequestDto>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.Add(buyRequest));
+		repository.Setup(x => x.AddAsync(buyRequest));
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Add(result);
+		await service.AddAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Add(It.IsAny<BuyRequests>()), Times.Once);
+		repository.Verify(x => x.AddAsync(It.IsAny<BuyRequests>()), Times.Once);
 	}
 
 	[Fact]
@@ -129,18 +129,18 @@ public class BuyRequestApplicationServiceTest
 		var result = _mapper.Map<BuyRequestUpdateDto>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetById(buyRequest.Id)).ReturnsAsync(buyRequest);
-		repository.Setup(x => x.Update(buyRequest));
+		repository.Setup(x => x.GetByIdAsync(buyRequest.Id)).ReturnsAsync(buyRequest);
+		repository.Setup(x => x.UpdateAsync(buyRequest));
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Update(result);
+		await service.UpdateAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Update(It.IsAny<BuyRequests>()), Times.Once);
+		repository.Verify(x => x.UpdateAsync(It.IsAny<BuyRequests>()), Times.Once);
 	}
 
 	[Fact]
@@ -156,17 +156,17 @@ public class BuyRequestApplicationServiceTest
 		var result = _mapper.Map<BuyRequestPatchDto>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetById(buyRequest.Id)).ReturnsAsync(buyRequest);
-		repository.Setup(x => x.Patch(buyRequest));
+		repository.Setup(x => x.GetByIdAsync(buyRequest.Id)).ReturnsAsync(buyRequest);
+		repository.Setup(x => x.PatchAsync(buyRequest));
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		#endregion Vars
 
 		//Act
-		await service.Patch(result);
+		await service.PatchAsync(result);
 
 		//Assert
-		repository.Verify(x => x.Patch(It.IsAny<BuyRequests>()), Times.Once);
+		repository.Verify(x => x.PatchAsync(It.IsAny<BuyRequests>()), Times.Once);
 	}
 }

@@ -6,17 +6,17 @@ public interface IRepositoryBase<T> where T : EntityBase<T>
 {
 	void SetInclude(Func<IQueryable<T>, IIncludableQueryable<T, object>> include);
 
-	Task<T> Add(T obj);
+	Task<T> AddAsync(T obj);
 
-	Task<T> GetById(Guid id);
+	Task<T> GetByIdAsync(Guid id);
 
-	Task<(List<T> list, int totalPages, int page)> GetAll(int page);
+	Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page);
 
-	Task<T> Update(T obj);
+	Task<T> UpdateAsync(T obj);
 
-	Task<bool> Remove(Guid id);
+	Task<bool> RemoveAsync(Guid id);
 
-	Task<bool> Remove(T obj);
+	Task<bool> RemoveAsync(T obj);
 
-	Task<T> Patch(T obj);
+	Task<T> PatchAsync(T obj);
 }

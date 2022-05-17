@@ -23,7 +23,7 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 		SetInclude(x => x.Include(z => z.Products));
 	}
 
-	public override async Task<BuyRequests> Add(BuyRequests obj)
+	public override async Task<BuyRequests> AddAsync(BuyRequests obj)
 	{
 		_logger.LogInformation("Create new BuyRequest");
 		await dbSet.AddAsync(obj);
@@ -31,7 +31,7 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 		return obj;
 	}
 
-	public override async Task<BuyRequests> GetById(Guid id)
+	public override async Task<BuyRequests> GetByIdAsync(Guid id)
 	{
 		_logger.LogInformation("Call a BuyRequest with Id = {id}", id);
 		var query = dbSet.Where(br => br.Id == id);
@@ -49,7 +49,7 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 		return await query.AsNoTracking().FirstOrDefaultAsync();
 	}
 
-	public virtual async Task<BuyRequests> Patch(BuyRequests obj)
+	public virtual async Task<BuyRequests> PatchAsync(BuyRequests obj)
 	{
 		_logger.LogInformation("Call change to Status on {obj}", obj);
 		var result = await dbSet
@@ -57,20 +57,20 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 			.AsNoTracking()
 			.FirstOrDefaultAsync();
 		result.Status = obj.Status;
-		return await base.Patch(result);
+		return await base.PatchAsync(result);
 	}
 
-	public override async Task<bool> Remove(Guid id)
+	public override async Task<bool> RemoveAsync(Guid id)
 	{
 		var result = await dbSet
 			.Where(x => x.Id == id)
 			.AsNoTracking()
 			.FirstOrDefaultAsync();
-		await base.Remove(result);
+		await base.RemoveAsync(result);
 		return result != null;
 	}
 
-	public override async Task<BuyRequests> Update(BuyRequests obj)
+	public override async Task<BuyRequests> UpdateAsync(BuyRequests obj)
 	{
 		var result = await dbSet
 			.Where(x => x.Id == obj.Id)
@@ -82,8 +82,8 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 		var productsToDelete = result.Products.Where(w => !productsIds.Contains(w.Id)).ToList();
 		foreach (var produto in productsToDelete)
 		{
-			await _productsRepository.Remove(produto.Id);
+			await _productsRepository.RemoveAsync(produto.Id);
 		}
-		return await base.Update(obj);
+		return await base.UpdateAsync(obj);
 	}
 }

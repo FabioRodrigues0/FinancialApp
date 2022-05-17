@@ -18,21 +18,21 @@ public class ApplicationDocumentService : IApplicationDocumentService
 		_mapper = mapper;
 	}
 
-	public async Task<Documents> Add(DocumentDto obj)
+	public async Task<Documents> AddAsync(DocumentDto obj)
 	{
 		var documents = _mapper.Map<Documents>(obj);
-		return await _documentService.Add(documents);
+		return await _documentService.AddAsync(documents);
 	}
 
-	public async Task<DocumentDto> GetById(Guid id)
+	public async Task<DocumentDto> GetByIdAsync(Guid id)
 	{
-		var documents = await _documentService.GetById(id);
+		var documents = await _documentService.GetByIdAsync(id);
 		return _mapper.Map<DocumentDto>(documents);
 	}
 
-	public async Task<PagesDocumentDto> GetAll(int page)
+	public async Task<PagesDocumentDto> GetAllAsync(int page)
 	{
-		var result = await _documentService.GetAll(page);
+		var result = await _documentService.GetAllAsync(page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<DocumentDto>>(result.list);
@@ -40,20 +40,20 @@ public class ApplicationDocumentService : IApplicationDocumentService
 		return _mapper.Map<PagesDocumentDto>(newResult);
 	}
 
-	public async Task<Documents> Update(DocumentUpdateDto obj)
+	public async Task<Documents> UpdateAsync(DocumentUpdateDto obj)
 	{
 		var result = _mapper.Map<Documents>(obj);
-		return await _documentService.Update(result);
+		return await _documentService.UpdateAsync(result);
 	}
 
-	public async Task<Documents> Patch(DocumentPatchDto obj)
+	public async Task<Documents> PatchAsync(DocumentPatchDto obj)
 	{
 		var result = _mapper.Map<Documents>(obj);
-		return await _documentService.Patch(result);
+		return await _documentService.PatchAsync(result);
 	}
 
-	public async Task<bool> Remove(Guid id)
+	public async Task<bool> RemoveAsync(Guid id)
 	{
-		return await _documentService.Remove(id);
+		return await _documentService.RemoveAsync(id);
 	}
 }

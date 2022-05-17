@@ -38,7 +38,7 @@ public class CashBookControllerTest
 		var result = _mapper.Map<CashBookDto>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.Add(result));
+		application.Setup(x => x.AddAsync(result));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -46,7 +46,7 @@ public class CashBookControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.Add(It.IsAny<CashBookDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<CashBookDto>()), Times.Once);
 	}
 
 	[Fact]
@@ -54,7 +54,7 @@ public class CashBookControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.GetAll(1));
+		application.Setup(x => x.GetAllAsync(1));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -62,7 +62,7 @@ public class CashBookControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAll(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1), Times.Once);
 	}
 
 	[Fact]
@@ -75,7 +75,7 @@ public class CashBookControllerTest
 		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.Update(result));
+		application.Setup(x => x.UpdateAsync(result));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -83,7 +83,7 @@ public class CashBookControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.Update(It.IsAny<CashBookUpdateDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<CashBookUpdateDto>()), Times.Once);
 	}
 
 	[Fact]
@@ -96,7 +96,7 @@ public class CashBookControllerTest
 		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.GetById(result.Id));
+		application.Setup(x => x.GetByIdAsync(result.Id));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -104,7 +104,7 @@ public class CashBookControllerTest
 		await controller.Get(result.Id);
 
 		// Assert
-		application.Verify(x => x.GetById(result.Id), Times.Once);
+		application.Verify(x => x.GetByIdAsync(result.Id), Times.Once);
 	}
 
 	[Fact]
@@ -117,7 +117,7 @@ public class CashBookControllerTest
 		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.GetByOriginId(result.OriginId));
+		application.Setup(x => x.GetByOriginIdAsync(result.OriginId));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -125,6 +125,6 @@ public class CashBookControllerTest
 		await controller.GetOriginId(result.OriginId);
 
 		// Assert
-		application.Verify(x => x.GetByOriginId(result.OriginId), Times.Once);
+		application.Verify(x => x.GetByOriginIdAsync(result.OriginId), Times.Once);
 	}
 }

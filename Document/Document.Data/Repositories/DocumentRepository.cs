@@ -19,17 +19,17 @@ public class DocumentRepository : RepositoryBase<Documents>, IDocumentRepository
 		_logger = logger;
 	}
 
-	public override async Task<bool> Remove(Guid id)
+	public override async Task<bool> RemoveAsync(Guid id)
 	{
 		var result = await dbSet
 				.Where(x => x.Id == id)
 				.AsNoTracking()
 				.FirstOrDefaultAsync();
-		await base.Remove(id);
+		await base.RemoveAsync(id);
 		return result != null;
 	}
 
-	public virtual async Task<Documents> Patch(Documents obj)
+	public virtual async Task<Documents> PatchAsync(Documents obj)
 	{
 		_logger.LogInformation("Call change to Paid on {obj}", obj);
 		var result = await dbSet
@@ -37,7 +37,7 @@ public class DocumentRepository : RepositoryBase<Documents>, IDocumentRepository
 			.AsNoTracking()
 			.FirstOrDefaultAsync();
 		result.Paid = obj.Paid;
-		await base.Patch(result);
+		await base.PatchAsync(result);
 		return result;
 	}
 }
