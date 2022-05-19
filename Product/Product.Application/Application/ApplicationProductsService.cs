@@ -32,27 +32,27 @@ public class ApplicationProductsService : IApplicationProductsService
 		return _mapper.Map<ProductsDto>(result);
 	}
 
-	public async Task<PagesProductsDto> GetByCategoryAsync(ProductCategory category, int page)
+	public async Task<PagesGetCategoryProductsDto> GetByCategoryAsync(ProductCategory category, int page)
 	{
 		var result = await _productsService.GetByCategoryAsync(category, page);
 		if (result.list.Count == 0)
 			return null;
 		var toDto = _mapper.Map<List<ProductsCategoryDto>>(result.list);
 		var newResult = (toDto, result.totalPages, result.page);
-		return _mapper.Map<PagesProductsDto>(newResult);
+		return _mapper.Map<PagesGetCategoryProductsDto>(newResult);
 	}
 
-	public async Task<PagesProductsDto> GetAllAsync(int page)
+	public async Task<PagesGetAllProductsDto> GetAllAsync(int page)
 	{
 		var result = await _productsService.GetAllAsync(page);
 		if (result.list.Count == 0)
 			return null;
-		var toDto = _mapper.Map<List<ProductsDto>>(result.list);
+		var toDto = _mapper.Map<List<ProductsWithIdDto>>(result.list);
 		var newResult = (toDto, result.totalPages, page);
-		return _mapper.Map<PagesProductsDto>(newResult);
+		return _mapper.Map<PagesGetAllProductsDto>(newResult);
 	}
 
-	public async Task<Products> UpdateAsync(ProductsUpdateDto obj)
+	public async Task<Products> UpdateAsync(ProductsWithIdDto obj)
 	{
 		var result = _mapper.Map<Products>(obj);
 		return await _productsService.UpdateAsync(result);

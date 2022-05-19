@@ -11,6 +11,7 @@ namespace Product.Data.Repositories;
 
 public class ProductsRepository : RepositoryBase<Products>, IProductsRepository
 {
+	protected readonly ProductsContext _dataContext;
 	private readonly ILogger<ProductsRepository> _logger;
 
 	public ProductsRepository(
@@ -18,19 +19,26 @@ public class ProductsRepository : RepositoryBase<Products>, IProductsRepository
 		ILogger<ProductsRepository> logger
 		) : base(logger, context)
 	{
+		_dataContext = context;
 		_logger = logger;
 	}
 
 	public async Task<bool> ExistAsyncSameDescription(string description)
 	{
 		_logger.LogInformation("Checks if have any Products with description({description})", description);
-		return await dbSet.Where(w => w.Description == description).AnyAsync();
+		var result = from b in _dataContext.Products
+					 where _dataContext.CompareStringsOnProducts(b.Description, description) == 0
+					 select b;
+		return await result.AnyAsync();
 	}
 
 	public async Task<bool> ExistAsyncSameGTIN(string GTIN)
 	{
 		_logger.LogInformation("Checks if have any Products with GTIN({GTIN})", GTIN);
-		return (await dbSet.Where(w => string.Compare(w.GTIN, GTIN) == 0).ToListAsync()).Count() > 0;
+		var result = from b in _dataContext.Products
+					where _dataContext.CompareStringsOnProducts(b.GTIN, GTIN) == 0
+					select b;
+		return await result.AnyAsync();
 	}
 
 	async Task<(List<Products> list, int totalPages, int page)> IProductsRepository.GetByCategoryAsync(ProductCategory category, int page)

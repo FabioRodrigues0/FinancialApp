@@ -10,11 +10,11 @@ public interface IApplicationProductsService
 
 	Task<ProductsDto> GetByIdAsync(Guid id);
 
-	Task<PagesProductsDto> GetByCategoryAsync(ProductCategory category, int page);
+	Task<PagesGetCategoryProductsDto> GetByCategoryAsync(ProductCategory category, int page);
 
-	Task<PagesProductsDto> GetAllAsync(int page);
+	Task<PagesGetAllProductsDto> GetAllAsync(int page);
 
-	Task<Products> UpdateAsync(ProductsUpdateDto obj);
+	Task<Products> UpdateAsync(ProductsWithIdDto obj);
 
 	Task<bool> RemoveAsync(Guid id);
 }

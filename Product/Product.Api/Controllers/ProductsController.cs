@@ -73,7 +73,7 @@ public class ProductsController : ApiControllerBase
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> GetByCategoryAsync(ProductCategory category, int page= 1)
+	public async Task<IActionResult> GetByCategoryAsync([FromRoute]ProductCategory category, [FromRoute] int page= 1)
 	{
 		_logger.LogInformation("Begin Request for Products with Category = {category}", category);
 		return ServiceResponse(await _applicationProductService.GetByCategoryAsync(category, page));
@@ -111,9 +111,26 @@ public class ProductsController : ApiControllerBase
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Put([FromBody] ProductsUpdateDto obj)
+	public async Task<IActionResult> Put([FromBody] ProductsWithIdDto obj)
 	{
 		_logger.LogInformation("Begin Request for Update a Product({obj})", obj);
 		return ServiceResponse(await _applicationProductService.UpdateAsync(obj));
+	}
+
+	/// <summary>
+	/// Send a Request to Delete a Product
+	/// </summary>
+	/// <returns>Product Deleted</returns>
+	/// <response code="200">Success response</response>
+	/// <response code="400">
+	/// When a request error occurs but a message reporting the error is returned
+	/// </response>
+	[HttpDelete("{id}")]
+	[ProducesResponseType(200)]
+	[ProducesResponseType(400)]
+	public async Task<IActionResult> Delete([FromRoute] Guid id)
+	{
+		_logger.LogInformation("Begin Request for Delete Product with Id = {id}", id);
+		return ServiceResponse(await _applicationProductService.RemoveAsync(id));
 	}
 }

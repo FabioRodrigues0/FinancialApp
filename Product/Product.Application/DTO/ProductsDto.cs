@@ -4,7 +4,6 @@ namespace Product.Application.DTO;
 
 public class ProductsDto
 {
-	public Guid Id { get; set; }
 	public string Code { get; set; }
 	public string Description { get; set; }
 	public ProductCategory Category { get; set; }
