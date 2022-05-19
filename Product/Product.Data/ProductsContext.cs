@@ -18,8 +18,12 @@ public class ProductsContext : DataContext
 
 	public DbSet<Products> Products { get; set; }
 
+	public int CompareStringsOnProducts(string stringdb, string stringToCompare)
+	=> throw new NotSupportedException();
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfiguration(new ProductsConfiguration()).Entity<Products>();
+		modelBuilder.HasDbFunction(typeof(ProductsContext).GetMethod(nameof(CompareStringsOnProducts), new[] { typeof(string), typeof(string) })).HasName("CompareStrings");
 	}
 }

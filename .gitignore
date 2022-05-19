@@ -230,6 +230,8 @@ _pkginfo.txt
 !?*.[Cc]ache/
 
 # Others
+*.vs
+*.vscode
 ClientBin/
 ~$*
 *~

@@ -2,7 +2,7 @@
 
 namespace Product.Application.DTO;
 
-public class ProductsUpdateDto
+public class ProductsWithIdDto
 {
 	public Guid Id { get; set; }
 	public string Code { get; set; }

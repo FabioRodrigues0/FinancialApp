@@ -8,6 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Product/Product.Api/Product.Api.csproj", "Product/Product.Api/"]
+COPY ["Infrastructure/Infrastructure.Shared/Infrastructure.Shared.csproj", "Infrastructure/Infrastructure.Shared/"]
+COPY ["Product/Product.Data/Product.Data.csproj", "Product/Product.Data/"]
+COPY ["Product/Product.Domain/Product.Domain.csproj", "Product/Product.Domain/"]
+COPY ["Product/Product.Application/Product.Application.csproj", "Product/Product.Application/"]
 RUN dotnet restore "Product/Product.Api/Product.Api.csproj"
 COPY . .
 WORKDIR "/src/Product/Product.Api"

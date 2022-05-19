@@ -1,8 +1,8 @@
 ﻿namespace Product.Application.DTO;
 
-public class PagesProductsDto
+public class PagesGetAllProductsDto
 {
-	public List<ProductsDto> Models { get; set; }
+	public List<ProductsWithIdDto> Models { get; set; }
 	public int CurrentPage { get; set; }
 	public int Pages { get; set; }
 }
