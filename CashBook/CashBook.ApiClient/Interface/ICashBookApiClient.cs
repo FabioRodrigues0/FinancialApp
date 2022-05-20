@@ -5,5 +5,5 @@ namespace CashBook.ApiClient.Interface;
 
 public interface ICashBookApiClient
 {
-	Task PostAsync(CashBookDto obj);
+	void SendToRabbit(CashBookDto obj);
 }

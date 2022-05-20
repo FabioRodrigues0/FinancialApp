@@ -87,15 +87,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B5C338
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{899D5E73-AFB0-4123-83E3-0CBFE7A9733E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Api", "Product\Product.Api\Product.Api.csproj", "{09E149BB-9F32-4884-BAE5-514D43B7587F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Api", "Product\Product.Api\Product.Api.csproj", "{09E149BB-9F32-4884-BAE5-514D43B7587F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Application", "Product\Product.Application\Product.Application.csproj", "{881EDA62-EA60-44D4-BEE3-972B9961AAEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Application", "Product\Product.Application\Product.Application.csproj", "{881EDA62-EA60-44D4-BEE3-972B9961AAEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Data", "Product\Product.Data\Product.Data.csproj", "{CE46C336-B973-4045-8D2F-C343DF642041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Data", "Product\Product.Data\Product.Data.csproj", "{CE46C336-B973-4045-8D2F-C343DF642041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.UnitTest", "Product\Product.UnitTest\Product.UnitTest.csproj", "{DBC76CCB-BF8E-4B63-99AB-20D3E2B34372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.UnitTest", "Product\Product.UnitTest\Product.UnitTest.csproj", "{DBC76CCB-BF8E-4B63-99AB-20D3E2B34372}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Domain", "Product\Product.Domain\Product.Domain.csproj", "{2BD12E58-831C-49D2-80A9-59B7216FB2C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.Domain", "Product\Product.Domain\Product.Domain.csproj", "{2BD12E58-831C-49D2-80A9-59B7216FB2C0}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7387ADB7-4FB5-4A60-9D4C-AEB1B8D49234}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7674708B-AEE8-4FE6-9A78-FE9BE1BD8E64}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +198,10 @@ Global
 		{2BD12E58-831C-49D2-80A9-59B7216FB2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BD12E58-831C-49D2-80A9-59B7216FB2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BD12E58-831C-49D2-80A9-59B7216FB2C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7387ADB7-4FB5-4A60-9D4C-AEB1B8D49234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7387ADB7-4FB5-4A60-9D4C-AEB1B8D49234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7387ADB7-4FB5-4A60-9D4C-AEB1B8D49234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7387ADB7-4FB5-4A60-9D4C-AEB1B8D49234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

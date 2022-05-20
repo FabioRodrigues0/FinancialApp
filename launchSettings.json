@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "buyrequest.api": "StartDebugging",
+        "cashbook.api": "StartDebugging",
+        "cashbook.ApiClient": "StartWithoutDebugging",
+        "document.api": "StartDebugging",
+        "product.api": "StartDebugging"
+      }
+    }
+  }
+}

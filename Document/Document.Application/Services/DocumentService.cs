@@ -76,7 +76,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		if (model.Paid)
 		{
 			var cashBook = _mapper.Map<CashBookDto>(obj);
-			await _cashBookApiClient.PostAsync(cashBook);
+			_cashBookApiClient.SendToRabbit(cashBook);
 		}
 		return obj;
 	}
@@ -91,7 +91,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		if (obj.Paid)
 		{
 			var cashBook = _mapper.Map<CashBookDto>(obj);
-			await _cashBookApiClient.PostAsync(cashBook);
+			_cashBookApiClient.SendToRabbit(cashBook);
 		};
 		return result;
 	}

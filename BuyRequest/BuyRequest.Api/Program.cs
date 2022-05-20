@@ -9,6 +9,7 @@ using CashBook.ApiClient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConsoleLoggerFactory = LoggerFactory.Create(builder => { builder.AddDebug(); });

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using AutoMapper;
 using BuyRequest.Application.Services.Interfaces;
 using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
@@ -8,6 +9,7 @@ using Infrastructure.Shared;
 using Infrastructure.Shared.Enums;
 using Infrastructure.Shared.Interfaces;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace BuyRequest.Application.Services;
 
@@ -45,7 +47,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (Status.Finished.Equals(model.Status))
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
-			await _cashBookApiClient.PostAsync(cashbookDto);
+			_cashBookApiClient.SendToRabbit(cashbookDto);
 		}
 		return result;
 	}
@@ -63,7 +65,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (response.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
-			await _cashBookApiClient.PostAsync(cashbookDto);
+			_cashBookApiClient.SendToRabbit(cashbookDto);
 		}
 		return response;
 	}
@@ -81,7 +83,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (model.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(model);
-			await _cashBookApiClient.PostAsync(cashbookDto);
+			_cashBookApiClient.SendToRabbit(cashbookDto);
 		}
 
 		return response;
@@ -97,7 +99,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (obj.Status == Status.Finished)
 		{
 			var cashbookDto = _mapper.Map<CashBookDto>(result);
-			await _cashBookApiClient.PostAsync(cashbookDto);
+			_cashBookApiClient.SendToRabbit(cashbookDto);
 		}
 		return result;
 	}
