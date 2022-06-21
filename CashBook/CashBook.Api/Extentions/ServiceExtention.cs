@@ -4,8 +4,8 @@ using CashBook.Application.Services;
 using CashBook.Application.Services.Interface;
 using CashBook.Data.Repositories;
 using CashBook.Data.Repositories.Interfaces;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
 
 namespace CashBook.Api.Extentions;
 

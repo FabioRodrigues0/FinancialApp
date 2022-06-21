@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
-using CashBook.Domain.Models;
 using Document.Application.DTO;
 using Document.Domain.Models;
 

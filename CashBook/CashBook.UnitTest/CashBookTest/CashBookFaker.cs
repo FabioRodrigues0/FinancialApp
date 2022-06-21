@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Bogus;
+﻿using Bogus;
 using CashBook.Application.DTO;
 using CashBook.Domain.Models;
 using Infrastructure.Shared.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace CashBook.UnitTest.CashBookTest;
 

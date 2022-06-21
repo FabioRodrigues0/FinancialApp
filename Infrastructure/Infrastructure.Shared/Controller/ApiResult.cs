@@ -1,17 +1,18 @@
-﻿namespace Infrastructure.Shared.Controller;
-
-public class ApiResult<T>
+﻿namespace Infrastructure.Shared.Controller
 {
-	public IReadOnlyCollection<string> ErrorMessage { get; set; }
-	public T Contract { get; set; }
-
-	public ApiResult(T contract)
+	public class ApiResult<T>
 	{
-		Contract = contract;
-	}
+		public IReadOnlyCollection<string> ErrorMessage { get; set; }
+		public T Contract { get; set; }
 
-	public ApiResult(IReadOnlyCollection<string> errorMessage)
-	{
-		ErrorMessage = errorMessage;
+		public ApiResult(T contract)
+		{
+			Contract = contract;
+		}
+
+		public ApiResult(IReadOnlyCollection<string> errorMessage)
+		{
+			ErrorMessage = errorMessage;
+		}
 	}
 }

@@ -1,7 +1,8 @@
-﻿namespace Infrastructure.Shared.Enums;
-
-public enum ProductCategory
+﻿namespace Infrastructure.Shared.Enums
 {
-	Digital = 1,
-	Physical = 2
+	public enum ProductCategory
+	{
+		Digital = 1,
+		Physical = 2
+	}
 }

@@ -7,7 +7,6 @@ using Product.Application.DTO;
 using Product.Application.Map;
 using System.Threading.Tasks;
 using Xunit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Product.UnitTest.ProductTest;
 

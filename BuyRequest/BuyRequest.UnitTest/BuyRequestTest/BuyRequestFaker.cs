@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using BuyRequest.Application.DTO;
 using BuyRequest.Domain.Models;
-using CashBook.Application.DTO;
 using Infrastructure.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -31,7 +30,7 @@ public class BuyRequestFaker
 		.RuleFor(x => x.Client, Guid.NewGuid)
 		.RuleFor(x => x.ClientDescription, x => x.Random.String(1, 256))
 		.RuleFor(x => x.ClientEmail, x => x.Person.Email)
-		.RuleFor(x => x.ClientEmail, x => x.Person.Phone)
+		.RuleFor(x => x.ClientPhone, x => x.Person.Phone)
 		.RuleFor(x => x.Status, x => x.PickRandom<Status>())
 		.RuleFor(x => x.Discount, 0)
 		.RuleFor(x => x.Cost, 0)
@@ -45,7 +44,7 @@ public class BuyRequestFaker
 		.RuleFor(x => x.Client, Guid.NewGuid)
 		.RuleFor(x => x.ClientDescription, x => x.Random.String(1, 256))
 		.RuleFor(x => x.ClientEmail, x => x.Person.Email)
-		.RuleFor(x => x.ClientEmail, x => x.Person.Phone)
+		.RuleFor(x => x.ClientPhone, x => x.Person.Phone)
 		.RuleFor(x => x.Status, x => x.PickRandom<Status>())
 		.RuleFor(x => x.Discount, 0)
 		.RuleFor(x => x.Cost, 0)
@@ -65,7 +64,7 @@ public class BuyRequestFaker
 		.RuleFor(x => x.Client, Guid.NewGuid)
 		.RuleFor(x => x.ClientDescription, x => x.Random.String(1, 256))
 		.RuleFor(x => x.ClientEmail, x => x.Person.Email)
-		.RuleFor(x => x.ClientEmail, x => x.Person.Phone)
+		.RuleFor(x => x.ClientPhone, x => x.Person.Phone)
 		.RuleFor(x => x.Status, x => x.PickRandom<Status>())
 		.RuleFor(x => x.Discount, 0)
 		.RuleFor(x => x.Cost, 0)
@@ -80,7 +79,7 @@ public class BuyRequestFaker
 		.RuleFor(x => x.Client, Guid.NewGuid)
 		.RuleFor(x => x.ClientDescription, x => x.Random.String(1, 256))
 		.RuleFor(x => x.ClientEmail, x => x.Person.Email)
-		.RuleFor(x => x.ClientEmail, x => x.Person.Phone)
+		.RuleFor(x => x.ClientPhone, x => x.Person.Phone)
 		.RuleFor(x => x.Status, x => x.PickRandom<Status>())
 		.RuleFor(x => x.Discount, 0)
 		.RuleFor(x => x.Cost, 0)

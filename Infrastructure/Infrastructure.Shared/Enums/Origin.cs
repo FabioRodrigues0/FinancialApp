@@ -1,7 +1,9 @@
-﻿namespace Infrastructure.Shared.Enums;
-
-public enum Origin
+﻿namespace Infrastructure.Shared.Enums
 {
-	BuyRequest = 1,
-	Document = 2
+	public enum Origin
+	{
+		BuyRequest = 1,
+		Document = 2,
+		CashBook = 3
+	}
 }

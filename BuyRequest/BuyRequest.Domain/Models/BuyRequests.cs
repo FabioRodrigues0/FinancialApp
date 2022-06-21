@@ -1,12 +1,12 @@
 ﻿using BuyRequest.Domain.Models.Validations;
-using Infrastructure.Shared;
 using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Models;
 
 namespace BuyRequest.Domain.Models;
 
 public class BuyRequests : EntityBase<BuyRequests>
 {
-	public override bool IsValid()
+	public override async Task<bool> IsValid()
 	{
 		if (ValidationResult == null)
 		{

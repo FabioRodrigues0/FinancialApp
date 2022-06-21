@@ -1,9 +1,8 @@
-﻿namespace CashBook.Application.DTO;
+﻿using Infrastructure.Shared.Models;
 
-public class PagesCashBookDto
+namespace CashBook.Application.DTO;
+
+public class PagesCashBookDto : PagesBase<CashBookDto>
 {
-	public List<CashBookDto> Models { get; set; }
-	public int CurrentPage { get; set; }
-	public int Pages { get; set; }
 	public decimal Total { get; set; }
 }

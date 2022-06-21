@@ -1,12 +1,13 @@
 global using AutoMapper;
 global using Document.Domain.Models;
+using Document.Api.Extentions;
 using Document.Data;
 using Document.Domain.Models.Validations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Shared.Messaging.Settings;
+using MessageBroker.Settings.Queue;
 using Microsoft.EntityFrameworkCore;
-using CashBook.ApiClient;
-using Document.Api.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConsoleLoggerFactory = LoggerFactory.Create(builder => { builder.AddDebug(); });
@@ -31,7 +32,8 @@ builder.Services.AddDbContext<DocumentContext>(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddService();
 builder.Services.AddMapper();
-builder.Services.AddCashBankConfiguration(builder.Configuration);
+builder.Services.AddListenerConfiguration(builder.Configuration);
+builder.Services.AddPublisher();
 
 var app = builder.Build();
 
@@ -43,9 +45,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 await app.RunAsync();

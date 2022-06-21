@@ -1,7 +1,8 @@
-﻿namespace Infrastructure.Shared.Enums;
-
-public enum Operation
+﻿namespace Infrastructure.Shared.Enums
 {
-	Input = 1,
-	Output = 2
+	public enum Operation
+	{
+		Input = 1,
+		Output = 2
+	}
 }

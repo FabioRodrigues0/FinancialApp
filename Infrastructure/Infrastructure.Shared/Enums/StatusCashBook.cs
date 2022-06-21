@@ -1,8 +1,9 @@
-﻿namespace Infrastructure.Shared.Enums;
-
-public enum StatusCashBook
+﻿namespace Infrastructure.Shared.Enums
 {
-	Payment = 1,
-	Receivement = 2,
-	Reversal = 3
+	public enum StatusCashBook
+	{
+		Payment = 1,
+		Receivement = 2,
+		Reversal = 3
+	}
 }

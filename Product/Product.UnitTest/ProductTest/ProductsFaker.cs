@@ -26,7 +26,7 @@ public class ProductsFaker
 		.RuleFor(x => x.GTIN, x => x.Random.String(1, 256))
 		.RuleFor(x => x.QRCode, x => x.Random.String(1, 256));
 
-	public List<Products> list= new Faker<Products>()
+	public List<Products> list = new Faker<Products>()
 		.RuleFor(x => x.Id, Guid.NewGuid)
 		.RuleFor(x => x.Code, x => x.Random.String(1, 10))
 		.RuleFor(x => x.Category, x => x.Random.Enum<ProductCategory>())

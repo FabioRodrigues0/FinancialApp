@@ -1,9 +1,7 @@
 ﻿using BuyRequest.Data.Configurations;
 using BuyRequest.Domain.Models;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Logging;
 
 namespace BuyRequest.Data;
 

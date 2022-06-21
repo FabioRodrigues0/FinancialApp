@@ -15,9 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CashBook\CashBook.ApiClient\CashBook.ApiClient.csproj" />
+    <ProjectReference Include="..\..\CashBook\MessageBroker\MessageBroker.csproj" />
     <ProjectReference Include="..\BuyRequest.Data\BuyRequest.Data.csproj" />
     <ProjectReference Include="..\BuyRequest.Domain\BuyRequest.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Stock.Application">
+      <HintPath>..\..\..\StocksApp\Stocks\Stocks.Application\obj\Debug\net6.0\Stock.Application.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

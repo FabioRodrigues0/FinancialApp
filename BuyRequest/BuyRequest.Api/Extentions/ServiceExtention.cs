@@ -4,10 +4,8 @@ using BuyRequest.Application.Services;
 using BuyRequest.Application.Services.Interfaces;
 using BuyRequest.Data.Repositories;
 using BuyRequest.Data.Repositories.Interfaces;
-using CashBook.ApiClient;
-using CashBook.ApiClient.Interface;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
 
 namespace BuyRequest.Api.Extentions;
 
@@ -21,6 +19,5 @@ public static class ServiceExtention
 		services.AddScoped<IBuyRequestProductsRepository, BuyRequestProductsRepository>();
 		services.AddScoped<IBuyRequestRepository, BuyRequestRepository>();
 		services.AddScoped<IServiceContext, ServiceContext>();
-		services.AddScoped<ICashBookApiClient, CashBookApiClient>();
 	}
 }

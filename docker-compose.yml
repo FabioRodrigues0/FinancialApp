@@ -1,51 +1,82 @@
+version: '3'
+
+networks:
+    backend:
+
 services:
+    #db.server:
+    #    image: "mcr.microsoft.com/mssql/server"
+    #    container_name: db.server
+    #    restart: always
+    #    ports:
+    #        - 1433:1433
+    #    environment:
+    #        - ACCEPT_EULA=Y
+    #        - SA_PASSWORD=Capgemini@2022
+    #    volumes:
+    #        - C:\Users\fcarmoro\source\db_Backup:/var/opt/mssql/data
+    #    networks:
+    #        - backend
+
     buyrequest.api:
-        container_name: Buyrequest.Api
+        container_name: buyrequest.api
         image: ${DOCKER_REGISTRY-}buyrequestapi
         build:
             context: .
             dockerfile: BuyRequest/BuyRequest.Api/Dockerfile
+        networks:
+            - backend
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
+        depends_on:
+            - rabbitmq
         ports:
             - 8011:80
             - 8012:443
 
     cashbook.api:
-        container_name: Cashbook.Api
+        container_name: cashbook.api
         image: ${DOCKER_REGISTRY-}cashbookapi
         build:
             context: .
             dockerfile: CashBook/CashBook.Api/Dockerfile
+        networks:
+            - backend
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
+        depends_on:
+            - rabbitmq
         ports:
             - 8021:80
             - 8022:443
-        depends_on:
-            - cashbook.ApiClient
 
     document.api:
-        container_name: Document.Api
+        container_name: document.api
         image: ${DOCKER_REGISTRY-}documentapi
         build:
             context: .
             dockerfile: Document/Document.Api/Dockerfile
+        networks:
+            - backend
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
+        depends_on:
+            - rabbitmq
         ports:
             - 8031:80
             - 8032:443
 
     product.api:
-        container_name: Product.Api
+        container_name: product.api
         image: ${DOCKER_REGISTRY-}productapi
         build:
             context: .
             dockerfile: Product/Product.Api/Dockerfile
+        networks:
+            - backend
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
@@ -53,9 +84,11 @@ services:
             - 8041:80
             - 8042:443
 
-    cashbook.ApiClient:
+    rabbitmq:
         image: rabbitmq:3-management
-        container_name: Cashbook.ApiClient
+        container_name: rabbitmq
+        networks:
+            - backend
         environment:
             RABBITMQ_DEFAULT_USER: guest
             RABBITMQ_DEFAULT_PASS: guest

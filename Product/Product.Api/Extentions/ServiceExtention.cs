@@ -1,11 +1,11 @@
-﻿using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
+﻿using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
 using Product.Application.Application;
 using Product.Application.Application.Interface;
 using Product.Application.Services;
 using Product.Application.Services.Interface;
 using Product.Data.Repositories;
-using Product.Data.Repositories.Interfaces;
+using Product.Data.Repositories.Interface;
 
 namespace Product.Api.Extentions;
 

@@ -1,35 +1,39 @@
 ﻿using AutoMapper;
-using CashBook.ApiClient.Interface;
 using CashBook.Application.DTO;
-using CashBook.Domain.Models;
-using Document.Application.DTO;
 using Document.Application.Services.Interface;
 using Document.Data.Repositories.Interfaces;
 using Document.Domain.Models;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
+using MessageBroker.Publisher.Interface;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using static System.Net.WebRequestMethods;
 
 namespace Document.Application.Services;
 
 public class DocumentService : ServiceBase<Documents>, IDocumentService
 {
 	private readonly IDocumentRepository _documentRepository;
-	private readonly ICashBookApiClient _cashBookApiClient;
+	private readonly ICashBookPublisher _cashBookPublisher;
+	private readonly IConfiguration _config;
 	private readonly IMapper _mapper;
 	private readonly ILogger<DocumentService> _logger;
+	private readonly decimal d = 0;
 
 	public DocumentService(
+		IConfiguration config,
 		IMapper mapper,
+		ICashBookPublisher cashBookPublisher,
 		ILogger<DocumentService> logger,
 		IServiceContext serviceContext,
 		IDocumentRepository documentRepository)
 		: base(logger, documentRepository, serviceContext)
 	{
+		_cashBookPublisher = cashBookPublisher;
 		_logger = logger;
 		_documentRepository = documentRepository;
+		_config = config;
 		_mapper = mapper;
 	}
 
@@ -44,7 +48,8 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		var obj = await _documentRepository.AddAsync(model);
 		if (model.Paid)
 		{
-			var cashbook = _mapper.Map<CashBookDto>(obj);
+			var cashbookDto = _mapper.Map<CashBookDto>((model, TypeRequest.Add, d));
+			_cashBookPublisher.SendToRabbit(cashbookDto, _config["RabbitmqBaseSettings: QueueName"]);
 		}
 		return obj;
 	}
@@ -60,7 +65,9 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		var obj = await _documentRepository.UpdateAsync(model);
 		if (model.Paid)
 		{
-			var cashBook = _mapper.Map<CashBookDto>(obj);
+			var dif = model.Total - obj.Total;
+			var cashbookDto = _mapper.Map<CashBookDto>((obj, TypeRequest.Update, dif));
+			_cashBookPublisher.SendToRabbit(cashbookDto, _config["RabbitmqBaseSettings: QueueName"]);
 		}
 		return obj;
 	}
@@ -75,8 +82,9 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		var obj = await _documentRepository.PatchAsync(model);
 		if (model.Paid)
 		{
-			var cashBook = _mapper.Map<CashBookDto>(obj);
-			_cashBookApiClient.SendToRabbit(cashBook);
+			var dif = model.Total - obj.Total;
+			var cashBook = _mapper.Map<CashBookDto>((obj, TypeRequest.Patch, dif));
+			_cashBookPublisher.SendToRabbit(cashBook, _config["RabbitmqBaseSettings: QueueName"]);
 		}
 		return obj;
 	}
@@ -90,13 +98,13 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 		var result = await _documentRepository.RemoveAsync(id);
 		if (obj.Paid)
 		{
-			var cashBook = _mapper.Map<CashBookDto>(obj);
-			_cashBookApiClient.SendToRabbit(cashBook);
+			var cashBook = _mapper.Map<CashBookDto>((obj, TypeRequest.Remove, d));
+			_cashBookPublisher.SendToRabbit(cashBook, _config["RabbitmqBaseSettings: QueueName"]);
 		};
 		return result;
 	}
 
-	public async Task<(List<Documents> list, int totalPages, int page)> GetAllAsync(int page)
+	public override async Task<(List<Documents> list, int totalPages, int page)> GetAllAsync(int page)
 	{
 		var result = await _documentRepository.GetAllAsync(page);
 		if (result.list == null)

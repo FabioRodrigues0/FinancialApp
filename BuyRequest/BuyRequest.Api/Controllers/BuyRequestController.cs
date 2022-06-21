@@ -1,10 +1,8 @@
 ﻿using BuyRequest.Application.Application.Interface;
 using BuyRequest.Application.DTO;
 using Infrastructure.Shared.Controller;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace BuyRequest.Api.Controllers;
 

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoBogus" Version="2.13.1" />
@@ -13,7 +13,7 @@
 		<PackageReference Include="Bogus" Version="34.0.2" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
 		<PackageReference Include="Moq" Version="4.18.1" />
-		<PackageReference Include="Moq.AutoMock" Version="3.3.0" />
+		<PackageReference Include="Moq.AutoMock" Version="3.4.0" />
 		<PackageReference Include="Shouldly" Version="4.0.3" />
 		<PackageReference Include="xunit" Version="2.4.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -27,9 +27,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CashBook.Api\CashBook.Api.csproj" />
-	  <ProjectReference Include="..\CashBook.Application\CashBook.Application.csproj" />
-	  <ProjectReference Include="..\CashBook.Domain\CashBook.Domain.csproj" />
+		<ProjectReference Include="..\CashBook.Api\CashBook.Api.csproj" />
+		<ProjectReference Include="..\CashBook.Application\CashBook.Application.csproj" />
+		<ProjectReference Include="..\CashBook.Domain\CashBook.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

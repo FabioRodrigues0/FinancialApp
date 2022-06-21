@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using CashBook.Application.DTO;
 using CashBook.Application.Map;
-using CashBook.Domain.Models;
 using CashBook.UnitTest.CashBookTest;
 using Moq.AutoMock;
 using Shouldly;

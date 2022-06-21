@@ -1,15 +1,14 @@
 global using AutoMapper;
-using System.Text.Json.Serialization;
-using BuyRequest.Api;
 using BuyRequest.Api.Extentions;
 using BuyRequest.Data;
 using BuyRequest.Domain.Models;
 using BuyRequest.Domain.Models.Validations;
-using CashBook.ApiClient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Shared.Messaging.Settings;
+using MessageBroker.Settings.Queue;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ.Client;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConsoleLoggerFactory = LoggerFactory.Create(builder => { builder.AddDebug(); });
@@ -35,7 +34,8 @@ builder.Services.AddDbContext<BuyRequestContext>(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddService();
 builder.Services.AddMapper();
-builder.Services.AddCashBankConfiguration(builder.Configuration);
+builder.Services.AddListenerConfiguration(builder.Configuration);
+builder.Services.AddPublisher();
 
 var app = builder.Build();
 

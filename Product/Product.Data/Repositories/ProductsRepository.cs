@@ -1,10 +1,6 @@
-﻿using System.Globalization;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Enums;
-using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.Shared.Repository;
 using Microsoft.Extensions.Logging;
-using Product.Data;
-using Product.Data.Repositories.Interfaces;
+using Product.Data.Repositories.Interface;
 using Product.Domain.Models;
 
 namespace Product.Data.Repositories;
@@ -21,42 +17,5 @@ public class ProductsRepository : RepositoryBase<Products>, IProductsRepository
 	{
 		_dataContext = context;
 		_logger = logger;
-	}
-
-	public async Task<bool> ExistAsyncSameDescription(string description)
-	{
-		_logger.LogInformation("Checks if have any Products with description({description})", description);
-		var result = from b in _dataContext.Products
-					 where _dataContext.CompareStringsOnProducts(b.Description, description) == 0
-					 select b;
-		return await result.AnyAsync();
-	}
-
-	public async Task<bool> ExistAsyncSameGTIN(string GTIN)
-	{
-		_logger.LogInformation("Checks if have any Products with GTIN({GTIN})", GTIN);
-		var result = from b in _dataContext.Products
-					where _dataContext.CompareStringsOnProducts(b.GTIN, GTIN) == 0
-					select b;
-		return await result.AnyAsync();
-	}
-
-	async Task<(List<Products> list, int totalPages, int page)> IProductsRepository.GetByCategoryAsync(ProductCategory category, int page)
-	{
-		const int pageResults = 10;
-
-		_logger.LogInformation("Calls Products with Category {category}", category);
-		var query = dbSet
-			.Where(x => x.Category == category)
-			.AsNoTracking()
-			.Skip((page - 1) * dbSet.Count())
-			.Take(pageResults);
-
-		if (Include != null)
-			query = Include(query);
-		_logger.LogInformation("Calls a List {T}", query.GetType());
-		var result = await query.ToListAsync();
-		var totalPages = (int)Math.Ceiling(query.Count() / 10f);
-		return (result, totalPages, page);
 	}
 }

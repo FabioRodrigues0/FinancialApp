@@ -1,5 +1,5 @@
 ﻿using CashBook.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Repository.Interface;
 
 namespace CashBook.Data.Repositories.Interfaces;
 

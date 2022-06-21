@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
 using CashBook.Application.Services.Interface;
 using CashBook.Data.Repositories.Interfaces;
 using CashBook.Domain.Models;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.Extensions.Logging;
 
 namespace CashBook.Application.Services;

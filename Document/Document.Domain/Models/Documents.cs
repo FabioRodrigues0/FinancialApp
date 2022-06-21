@@ -1,12 +1,12 @@
 ﻿using Document.Domain.Models.Validations;
-using Infrastructure.Shared;
 using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Models;
 
 namespace Document.Domain.Models;
 
 public class Documents : EntityBase<Documents>
 {
-	public override bool IsValid()
+	public override async Task<bool> IsValid()
 	{
 		if (ValidationResult == null)
 		{

@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CashBook\CashBook.ApiClient\CashBook.ApiClient.csproj" />
+    <ProjectReference Include="..\..\CashBook\MessageBroker\MessageBroker.csproj" />
+    <ProjectReference Include="..\..\CashBook\MessageBroker\MessageBroker.csproj" />
     <ProjectReference Include="..\Document.Data\Document.Data.csproj" />
     <ProjectReference Include="..\Document.Domain\Document.Domain.csproj" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Shared.Enums;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 using Product.Domain.Models;
 
 namespace Product.Application.Services.Interface;

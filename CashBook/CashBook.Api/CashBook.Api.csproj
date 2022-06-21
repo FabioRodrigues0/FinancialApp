@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -13,7 +13,7 @@
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="11.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-		<PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
@@ -26,9 +26,8 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.4" />
-		<PackageReference Include="RabbitMQ.Client" Version="6.3.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
 	</ItemGroup>
 
@@ -36,5 +35,6 @@
 	  <ProjectReference Include="..\..\Infrastructure\Infrastructure.Shared\Infrastructure.Shared.csproj" />
 	  <ProjectReference Include="..\CashBook.Application\CashBook.Application.csproj" />
 	  <ProjectReference Include="..\CashBook.Data\CashBook.Data.csproj" />
+	  <ProjectReference Include="..\MessageBroker\MessageBroker.csproj" />
 	</ItemGroup>
 </Project>

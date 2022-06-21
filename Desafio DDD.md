@@ -70,7 +70,7 @@ Cada classe vai derivar da ClassModel base com já o Id nela.
 
 ## Notas
 
-- Ver CodeRewiew Producto
+- Procurar ou perguntar se e susposto o container da base de dados se resetar quando se faz rebuild ou clean build
 
 ## Importante
 

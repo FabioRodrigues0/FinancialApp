@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using BuyRequest.Application.Application.Interface;
 using BuyRequest.Application.DTO;
 using BuyRequest.Application.Services.Interfaces;
 using BuyRequest.Domain.Models;
-using CashBook.Application.DTO;
 
 namespace BuyRequest.Application.Application;
 

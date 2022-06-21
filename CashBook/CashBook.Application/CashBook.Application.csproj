@@ -9,7 +9,7 @@
   <ItemGroup>
     <Folder Include="Application\Interface\" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.Shared\Infrastructure.Shared.csproj" />
     <ProjectReference Include="..\CashBook.Data\CashBook.Data.csproj" />

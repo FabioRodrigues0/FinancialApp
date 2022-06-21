@@ -1,7 +1,8 @@
-﻿using Moq;
+﻿using Infrastructure.Shared.Enums;
+using Moq;
 using Moq.AutoMock;
 using Product.Application.Services;
-using Product.Data.Repositories.Interfaces;
+using Product.Data.Repositories.Interface;
 using Product.Domain.Models;
 using System.Threading.Tasks;
 using Xunit;
@@ -36,6 +37,28 @@ public class ProductsServiceTest
 
 		//Assert
 		repository.Verify(x => x.GetAllAsync(1), Times.Once);
+	}
+
+	[Fact]
+	public async Task ProductsService_GetByCategory()
+	{
+		//Arrange
+		var productsFaker = new ProductsFaker();
+		var products = productsFaker.products;
+		int totalPages = 1, page = 1;
+		var list = (productsFaker.list, totalPages, page);
+		var category = ProductCategory.Physical;
+
+		var repository = _mocker.GetMock<IProductsRepository>();
+		repository.Setup(x => x.GetAllAsync(x => x.Category == category, page)).ReturnsAsync(list);
+
+		var service = _mocker.CreateInstance<ProductsService>();
+
+		//Act
+		await service.GetByCategoryAsync(category, 1);
+
+		//Assert
+		repository.Verify(x => x.GetAllAsync(x => x.Category == category, page), Times.Once);
 	}
 
 	[Fact]

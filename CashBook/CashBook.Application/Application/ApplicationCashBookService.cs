@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CashBook.Application.Application.Interface;
 using CashBook.Application.DTO;
-using CashBook.Application.Services;
 using CashBook.Application.Services.Interface;
 using CashBook.Domain.Models;
 

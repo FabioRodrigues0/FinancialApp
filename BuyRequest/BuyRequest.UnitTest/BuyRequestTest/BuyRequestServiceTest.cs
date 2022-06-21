@@ -1,13 +1,10 @@
 ﻿using BuyRequest.Application.Services;
 using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
-using Infrastructure.Shared.Interfaces;
-using Infrastructure.Shared;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
 using Xunit;
-using System.Collections.Generic;
 
 namespace BuyRequest.UnitTest.BuyRequestTest;
 
