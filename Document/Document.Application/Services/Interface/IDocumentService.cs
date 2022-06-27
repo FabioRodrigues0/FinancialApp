@@ -1,6 +1,5 @@
-﻿using Document.Application.DTO;
-using Document.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+﻿using Document.Domain.Models;
+using Infrastructure.Shared.Services.Interface;
 
 namespace Document.Application.Services.Interface;
 

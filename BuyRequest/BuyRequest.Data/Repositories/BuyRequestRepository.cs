@@ -1,8 +1,6 @@
 ﻿using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
-using CashBook.ApiClient.Interface;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

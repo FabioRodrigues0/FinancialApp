@@ -1,23 +1,41 @@
 ﻿using BuyRequest.Application.Services;
 using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
-using Infrastructure.Shared.Interfaces;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Messaging.Settings;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Options;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
 using Xunit;
-using System.Collections.Generic;
 
 namespace BuyRequest.UnitTest.BuyRequestTest;
 
 public class BuyRequestServiceTest
 {
 	public readonly AutoMocker _mocker;
+	public readonly string queueName;
+	public readonly string queueNameMP;
+	private readonly string connectionString;
+	private readonly string topic;
+	private readonly string routingKey;
+	private readonly RabbitMqOptions _appSettings;
 
 	public BuyRequestServiceTest()
 	{
 		_mocker = new AutoMocker();
+		queueName = "queueTest";
+		queueNameMP = "queueMPTest";
+		connectionString = "localhost";
+		topic = "topicTest";
+		routingKey = "routingKeyTest";
+		_appSettings = new RabbitMqOptions() {
+			QueueName = queueName,
+			QueueNameMP = queueNameMP,
+			StringConnection = connectionString,
+			Topic = topic,
+			RoutingKey = routingKey,
+		};
 	}
 
 	[Fact]
@@ -89,7 +107,14 @@ public class BuyRequestServiceTest
 		var buyRequest = buyRequestFaker.buyRequest;
 
 		var repository = _mocker.GetMock<IBuyRequestRepository>();
+		var optionsV = _mocker.GetMock<IOptions<RabbitMqOptions>>();
+		var options = _mocker.GetMock<RabbitMqOptions>();
+		
 		repository.Setup(x => x.AddAsync(buyRequest));
+
+		var mockoptions = Options();
+		mockoptions.Setup(ap => ap.Value).Returns(_appSettings);
+
 
 		var service = _mocker.CreateInstance<BuyRequestService>();
 
@@ -150,5 +175,11 @@ public class BuyRequestServiceTest
 
 		//Assert
 		repository.Verify(x => x.PatchAsync(It.IsAny<BuyRequests>()), Times.Once);
+	}
+
+	private Mock<IOptions<RabbitMqOptions>> Options()
+	{
+		var mockoptions = _mocker.GetMock<IOptions<RabbitMqOptions>>();
+		return mockoptions;
 	}
 }

@@ -1,17 +1,12 @@
 ﻿using CashBook.Data.Configurations;
 using CashBook.Domain.Models;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Logging;
 
 namespace CashBook.Data;
 
 public class CashBookContext : DataContext
 {
-	public static readonly ILoggerFactory ConsoleLoggerFactory
-			= LoggerFactory.Create(builder => { builder.AddDebug(); });
-
 	public CashBookContext(DbContextOptions<CashBookContext> options) : base(options)
 	{
 	}

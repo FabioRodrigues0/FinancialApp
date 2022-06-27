@@ -1,6 +1,5 @@
-﻿using CashBook.Application.DTO;
-using CashBook.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+﻿using CashBook.Domain.Models;
+using Infrastructure.Shared.Services.Interface;
 
 namespace CashBook.Application.Services.Interface;
 

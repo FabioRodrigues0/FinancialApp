@@ -1,6 +1,6 @@
 ﻿using BuyRequest.Domain.Models.Validations;
-using Infrastructure.Shared;
 using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Models;
 
 namespace BuyRequest.Domain.Models;
 
@@ -8,7 +8,7 @@ public class BuyRequestProducts : EntityBase<BuyRequestProducts>
 {
 	public decimal Total { get; set; }
 
-	public override bool IsValid()
+	public override async Task<bool> IsValid()
 	{
 		if (ValidationResult == null)
 		{

@@ -1,6 +1,6 @@
 ﻿using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Repository;
 using Microsoft.Extensions.Logging;
 
 namespace BuyRequest.Data.Repositories;

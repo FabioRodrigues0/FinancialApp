@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Shared.Controller;
 using Infrastructure.Shared.Enums;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Product.Application.Application.Interface;
 using Product.Application.DTO;
@@ -73,7 +73,7 @@ public class ProductsController : ApiControllerBase
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> GetByCategoryAsync([FromRoute]ProductCategory category, [FromRoute] int page= 1)
+	public async Task<IActionResult> GetByCategoryAsync([FromRoute] ProductCategory category, [FromRoute] int page = 1)
 	{
 		_logger.LogInformation("Begin Request for Products with Category = {category}", category);
 		return ServiceResponse(await _applicationProductService.GetByCategoryAsync(category, page));

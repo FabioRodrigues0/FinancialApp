@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Product.Api.Extentions;
 using Product.Data;
 using Product.Domain.Models;
-using Product.Domain.Models.Validations;
+using Product.Domain.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConsoleLoggerFactory = LoggerFactory.Create(builder => { builder.AddDebug(); });
@@ -41,9 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 await app.RunAsync();

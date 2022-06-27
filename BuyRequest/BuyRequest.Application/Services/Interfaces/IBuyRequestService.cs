@@ -1,6 +1,5 @@
-﻿using BuyRequest.Application.DTO;
-using BuyRequest.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+﻿using BuyRequest.Domain.Models;
+using Infrastructure.Shared.Services.Interface;
 
 namespace BuyRequest.Application.Services.Interfaces;
 

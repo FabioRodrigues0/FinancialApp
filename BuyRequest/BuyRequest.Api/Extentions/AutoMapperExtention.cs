@@ -13,6 +13,8 @@ public static class AutoMapperExtention
 			cfg.AddProfile(new BuyRequestProductAutoMapper());
 			cfg.AddProfile(new PagesBuyRequestMapper());
 			cfg.AddProfile(new CashBookConverterAutoMapper());
+			cfg.AddProfile(new ProductsMovementConverterAutoMapper());
+			cfg.AddProfile(new MovementConverterAutoMapper());
 		});
 		var mapper = config.CreateMapper();
 

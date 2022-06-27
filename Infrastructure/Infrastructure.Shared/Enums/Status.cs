@@ -1,9 +1,10 @@
-﻿namespace Infrastructure.Shared.Enums;
-
-public enum Status
+﻿namespace Infrastructure.Shared.Enums
 {
-	Received = 1,
-	AwaitingDelivery = 2,
-	AwaitingDownload = 3,
-	Finished = 4
+	public enum Status
+	{
+		Received = 1,
+		AwaitingDelivery = 2,
+		AwaitingDownload = 3,
+		Finished = 4
+	}
 }

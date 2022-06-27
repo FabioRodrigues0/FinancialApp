@@ -1,9 +1,7 @@
 ﻿using Document.Data.Configurations;
 using Document.Domain.Models;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Logging;
 
 namespace Document.Data;
 

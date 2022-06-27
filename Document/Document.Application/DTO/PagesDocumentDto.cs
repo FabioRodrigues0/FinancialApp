@@ -1,8 +1,7 @@
-﻿namespace Document.Application.DTO;
+﻿using Infrastructure.Shared.Models;
 
-public class PagesDocumentDto
+namespace Document.Application.DTO;
+
+public class PagesDocumentDto : PagesBase<DocumentDto>
 {
-	public List<DocumentDto> Models { get; set; }
-	public int CurrentPage { get; set; }
-	public int Pages { get; set; }
 }

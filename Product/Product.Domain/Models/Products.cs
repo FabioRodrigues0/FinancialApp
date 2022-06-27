@@ -1,6 +1,6 @@
-﻿using Infrastructure.Shared;
-using Infrastructure.Shared.Enums;
-using Product.Domain.Models.Validations;
+﻿using Infrastructure.Shared.Enums;
+using Infrastructure.Shared.Models;
+using Product.Domain.Validations;
 
 namespace Product.Domain.Models;
 
@@ -14,12 +14,12 @@ public class Products : EntityBase<Products>
 	public string GTIN { get; set; }
 	public string QRCode { get; set; }
 
-	public override bool IsValid()
+	public override async Task<bool> IsValid()
 	{
 		if (ValidationResult == null)
 		{
 			var validator = new ProductsValidations();
-			ValidationResult = validator.Validate(this);
+			ValidationResult = await validator.ValidateAsync(this);
 		}
 
 		return ValidationResult?.IsValid != false;

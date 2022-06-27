@@ -7,7 +7,6 @@ using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
 using Xunit;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Document.UnitTest.DocumentTest;
 

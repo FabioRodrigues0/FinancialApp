@@ -1,8 +1,7 @@
-﻿namespace Product.Application.DTO;
+﻿using Infrastructure.Shared.Models;
 
-public class PagesGetCategoryProductsDto
+namespace Product.Application.DTO;
+
+public class PagesGetCategoryProductsDto : PagesBase<ProductsCategoryDto>
 {
-	public List<ProductsCategoryDto> Models { get; set; }
-	public int CurrentPage { get; set; }
-	public int Pages { get; set; }
 }

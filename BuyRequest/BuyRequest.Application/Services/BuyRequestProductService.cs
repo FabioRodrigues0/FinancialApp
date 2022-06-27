@@ -1,9 +1,8 @@
 ﻿using BuyRequest.Application.Services.Interfaces;
-using BuyRequest.Data.Repositories;
 using BuyRequest.Data.Repositories.Interfaces;
 using BuyRequest.Domain.Models;
-using Infrastructure.Shared;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.Extensions.Logging;
 
 namespace BuyRequest.Application.Services;

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using BuyRequest.Application.DTO;
 using BuyRequest.Domain.Models;
 

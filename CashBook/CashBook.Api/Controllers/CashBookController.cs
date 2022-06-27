@@ -1,7 +1,7 @@
 ﻿using CashBook.Application.Application.Interface;
 using CashBook.Application.DTO;
 using Infrastructure.Shared.Controller;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashBook.Api.Controllers;

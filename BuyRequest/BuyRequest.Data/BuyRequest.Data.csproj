@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\CashBook\CashBook.ApiClient\CashBook.ApiClient.csproj" />
+	  <ProjectReference Include="..\..\CashBook\MessageBroker\MessageBroker.csproj" />
 	  <ProjectReference Include="..\BuyRequest.Domain\BuyRequest.Domain.csproj" />
 	</ItemGroup>
 	

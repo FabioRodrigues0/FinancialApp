@@ -1,5 +1,5 @@
 ﻿using BuyRequest.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 
 namespace BuyRequest.Application.Services.Interfaces;
 

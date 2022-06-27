@@ -1,7 +1,7 @@
 ﻿using Document.Application.Application.Interface;
 using Document.Application.DTO;
 using Infrastructure.Shared.Controller;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Document.Api.Controllers;

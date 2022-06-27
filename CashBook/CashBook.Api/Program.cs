@@ -1,10 +1,11 @@
 global using CashBook.Domain.Models;
-using CashBook.Api;
 using CashBook.Api.Extentions;
 using CashBook.Data;
 using CashBook.Domain.Models.Validations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Shared.Messaging.Settings;
+using MessageBroker.Settings.Queue;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,15 +25,17 @@ builder.Services.AddDbContext<CashBookContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 		.UseLoggerFactory(ConsoleLoggerFactory)
-		.EnableSensitiveDataLogging();
+		.EnableSensitiveDataLogging()
+		.EnableDetailedErrors();
 });
 
 builder.Services.AddHttpClient();
 builder.Services.AddService();
 builder.Services.AddMapper();
+builder.Services.AddConsumer();
+builder.Services.AddListener(builder.Configuration);
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -40,10 +43,9 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseRouting();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 await app.RunAsync();

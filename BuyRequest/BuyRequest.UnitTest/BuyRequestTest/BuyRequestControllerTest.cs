@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BuyRequest.Api.Controllers;
 using BuyRequest.Application.Application.Interface;
 using BuyRequest.Application.DTO;
 using BuyRequest.Application.Map;
 using Moq;
 using Moq.AutoMock;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace BuyRequest.UnitTest.BuyRequestTest;

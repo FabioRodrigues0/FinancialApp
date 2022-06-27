@@ -70,8 +70,7 @@ Cada classe vai derivar da ClassModel base com já o Id nela.
 
 ## Notas
 
-- Criar um novo Dto para o Produto para ele não ter que meter o Id na entrada mas ter na saida
-- Ver sobre EFCore chamar function do sql para poder comparar
+- Procurar ou perguntar se e susposto o container da base de dados se resetar quando se faz rebuild ou clean build
 
 ## Importante
 

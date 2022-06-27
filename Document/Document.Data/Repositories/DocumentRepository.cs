@@ -1,8 +1,6 @@
-﻿using System.Net.Http.Json;
-using AutoMapper;
-using Document.Data.Repositories.Interfaces;
+﻿using Document.Data.Repositories.Interfaces;
 using Document.Domain.Models;
-using Infrastructure.Shared;
+using Infrastructure.Shared.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

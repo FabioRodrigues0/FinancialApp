@@ -1,8 +1,7 @@
-﻿namespace BuyRequest.Application.DTO;
+﻿using Infrastructure.Shared.Models;
 
-public class PagesBuyRequestDto
+namespace BuyRequest.Application.DTO;
+
+public class PagesBuyRequestDto : PagesBase<BuyRequestDto>
 {
-	public List<BuyRequestDto> Models { get; set; }
-	public int CurrentPage { get; set; }
-	public int Pages { get; set; }
 }

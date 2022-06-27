@@ -1,5 +1,5 @@
 ﻿using Document.Domain.Models;
-using Infrastructure.Shared.Interfaces;
+using Infrastructure.Shared.Repository.Interface;
 
 namespace Document.Data.Repositories.Interfaces;
 
