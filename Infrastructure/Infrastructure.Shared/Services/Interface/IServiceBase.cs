@@ -16,7 +16,7 @@ namespace Infrastructure.Shared.Services.Interface
 
 		Task<T> GetByIdAsync(Guid id);
 
-		bool ValidateEntity(T domain);
+		Task<bool> ValidateEntity(T domain);
 
 		void NoContent(bool content);
 

@@ -17,9 +17,9 @@ namespace Infrastructure.Shared.Services
 			_logger = logger;
 			_serviceContext = serviceContext;
 		}
-		public bool ValidateEntity(T domain)
+		public async Task<bool> ValidateEntity(T domain)
 		{
-			domain.IsValid();
+			await domain.IsValid();
 			if (domain?.ValidationResult?.Errors.Any() == true)
 				foreach (var domainErro in domain.ValidationResult.Errors)
 					AddNotification(domainErro);

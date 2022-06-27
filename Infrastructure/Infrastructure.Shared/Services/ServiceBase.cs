@@ -52,9 +52,9 @@ namespace Infrastructure.Shared.Services
 			return await _tEntityRepository.RemoveAsync(id);
 		}
 
-		public bool ValidateEntity(T domain)
+		public async Task<bool> ValidateEntity(T domain)
 		{
-			domain.IsValid();
+			await domain.IsValid();
 			if (domain?.ValidationResult?.Errors.Any() == true)
 				foreach (var domainErro in domain.ValidationResult.Errors)
 					AddNotification(domainErro);

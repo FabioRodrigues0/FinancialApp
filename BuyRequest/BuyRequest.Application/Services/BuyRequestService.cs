@@ -50,7 +50,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 	public override async Task<BuyRequests> AddAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		//AddNotification("Erro de negocio");
 		if (!IsValidOperation)
 			return null;
@@ -68,7 +68,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 	public override async Task<BuyRequests> UpdateAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		if (!IsValidOperation)
 			return null;
 		var result = await _buyRequestRepository.GetByIdAsync(model.Id);
@@ -89,7 +89,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 	public override async Task<BuyRequests> PatchAsync(BuyRequests model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		if (!IsValidOperation)
 			return null;
 		var result = await _buyRequestRepository.GetByIdAsync(model.Id);

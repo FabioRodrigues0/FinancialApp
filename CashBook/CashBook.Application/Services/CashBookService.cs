@@ -28,7 +28,7 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 	public override async Task<CashBooks> AddAsync(CashBooks model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		//AddNotification("Erro de negocio");
 		if (!IsValidOperation)
 			return null;
@@ -39,7 +39,7 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 	public override async Task<CashBooks> UpdateAsync(CashBooks model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		if (!IsValidOperation)
 			return null;
 		var result = await _cashBookRepository.GetByIdAsync(model.Id);
@@ -48,7 +48,7 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 		return await _cashBookRepository.UpdateAsync(model);
 	}
 
-	public async Task<(List<CashBooks> list, int totalPages, int page)> GetAllAsync(int page)
+	public override async Task<(List<CashBooks> list, int totalPages, int page)> GetAllAsync(int page)
 	{
 		var result = await _cashBookRepository.GetAllAsync(page);
 		if (result.list.Count() == 0)

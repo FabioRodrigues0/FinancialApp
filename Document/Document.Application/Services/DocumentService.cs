@@ -40,7 +40,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 	public override async Task<Documents> AddAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		//AddNotification("Erro de negocio");
 		if (!IsValidOperation)
 			return null;
@@ -57,7 +57,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 	public override async Task<Documents> UpdateAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		//AddNotification("Erro de negocio");
 		if (!IsValidOperation)
 			return null;
@@ -75,7 +75,7 @@ public class DocumentService : ServiceBase<Documents>, IDocumentService
 	public override async Task<Documents> PatchAsync(Documents model)
 	{
 		_logger.LogInformation("Begin Validate {model}", model);
-		ValidateEntity(model);
+		await ValidateEntity(model);
 		var result = await _documentRepository.GetByIdAsync(model.Id);
 		if (!IsValidOperation)
 			return null;
