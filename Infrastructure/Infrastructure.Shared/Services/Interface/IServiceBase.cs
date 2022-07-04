@@ -1,4 +1,4 @@
-﻿using Infrastructure.Shared.Models;
+﻿using Infrastructure.Shared.Entities;
 
 namespace Infrastructure.Shared.Services.Interface
 {
@@ -12,7 +12,7 @@ namespace Infrastructure.Shared.Services.Interface
 
 		Task<T> PatchAsync(T obj);
 
-		Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page);
+		Task<PagesBase<T>> GetAllAsync(int page, int itemsPerPage);
 
 		Task<T> GetByIdAsync(Guid id);
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
 using CashBook.Application.Map;
+using CashBook.Application.Models;
 using CashBook.UnitTest.CashBookTest;
 using Moq.AutoMock;
 using Shouldly;
@@ -33,7 +33,7 @@ public class AutoMapperTest
 		var cashBookFaker = new CashBookFaker();
 		var cashbook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookDto>(cashbook);
+		var result = _mapper.Map<CashBookModel>(cashbook);
 
 		result.ShouldNotBeNull();
 		result.ShouldSatisfyAllConditions(
@@ -52,7 +52,7 @@ public class AutoMapperTest
 		int totalPages = 1, page = 1;
 		var cashbook = (cashBookFaker.listDto, totalPages, page);
 
-		var result = _mapper.Map<PagesCashBookDto>(cashbook);
+		var result = _mapper.Map<PagesCashBookModel>(cashbook);
 
 		result.ShouldNotBeNull();
 	}

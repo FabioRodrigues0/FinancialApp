@@ -1,4 +1,4 @@
-﻿using Infrastructure.Shared.Models;
+﻿using Infrastructure.Shared.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
@@ -12,9 +12,9 @@ namespace Infrastructure.Shared.Repository.Interface
 
 		Task<T> GetByIdAsync(Guid id);
 
-		Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page);
+		Task<PagesBase<T>> GetAllAsync(int page, int itemsPerPage);
 
-		Task<(List<T> list, int totalPages, int page)> GetAllAsync(Expression<Func<T, bool>> predicate, int page);
+		Task<PagesBase<T>> GetAllAsync(Expression<Func<T, bool>> predicate, int page, int itemsPerPage);
 
 		Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
 
@@ -25,5 +25,7 @@ namespace Infrastructure.Shared.Repository.Interface
 		Task<bool> RemoveAsync(T obj);
 
 		Task<T> PatchAsync(T obj);
+
+		PagesBase<T> ConvertToPages(List<T> list, int page, int totalPages);
 	}
 }

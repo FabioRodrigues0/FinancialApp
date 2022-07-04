@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Document.Application.Application;
-using Document.Application.DTO;
 using Document.Application.Map;
+using Document.Application.Models;
 using Document.Application.Services.Interface;
 using Document.Domain.Models;
 using Moq;
@@ -79,7 +79,7 @@ public class DocumentApplicationServiceTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentDto>(document);
+		var result = _mapper.Map<DocumentModel>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
 		repository.Setup(x => x.AddAsync(document));
@@ -105,7 +105,7 @@ public class DocumentApplicationServiceTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentUpdateDto>(document);
+		var result = _mapper.Map<DocumentUpdateModel>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
 		repository.Setup(x => x.UpdateAsync(document));
@@ -131,7 +131,7 @@ public class DocumentApplicationServiceTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentPatchDto>(document);
+		var result = _mapper.Map<DocumentPatchModel>(document);
 
 		var repository = _mocker.GetMock<IDocumentService>();
 		repository.Setup(x => x.PatchAsync(document));

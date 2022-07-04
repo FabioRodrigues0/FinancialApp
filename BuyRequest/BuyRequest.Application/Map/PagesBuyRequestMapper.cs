@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using BuyRequest.Application.DTO;
+using BuyRequest.Application.Models;
+using BuyRequest.Domain.Entities;
+using Infrastructure.Shared.Entities;
 
 namespace BuyRequest.Application.Map;
 
@@ -7,9 +9,9 @@ public class PagesBuyRequestMapper : Profile
 {
 	public PagesBuyRequestMapper()
 	{
-		CreateMap<(List<BuyRequestDto> list, int totalPages, int page), PagesBuyRequestDto>()
-			.ForMember(to => to.Models, from => from.MapFrom(x => x.list))
-			.ForMember(to => to.CurrentPage, from => from.MapFrom(x => x.page))
-			.ForMember(to => to.Pages, from => from.MapFrom(x => x.totalPages));
+		CreateMap<PagesBase<BuyRequests>, PagesBuyRequestModel>()
+			.ForMember(to => to.Models, from => from.MapFrom(x => x.Models))
+			.ForMember(to => to.CurrentPage, from => from.MapFrom(x => x.CurrentPage))
+			.ForMember(to => to.Pages, from => from.MapFrom(x => x.Pages));
 	}
 }

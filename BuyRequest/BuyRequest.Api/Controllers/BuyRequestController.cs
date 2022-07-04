@@ -1,5 +1,5 @@
 ﻿using BuyRequest.Application.Application.Interface;
-using BuyRequest.Application.DTO;
+using BuyRequest.Application.Models;
 using Infrastructure.Shared.Controller;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -30,14 +30,14 @@ public class BuyRequestController : ApiControllerBase
 	/// <response code="400">
 	/// When a request error occurs but a message reporting the error is returned
 	/// </response>
-	[HttpGet("page/{page}")]
+	[HttpGet("/per/{itemsPerPage}/page/{page}")]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Get([FromRoute] int page)
+	public async Task<IActionResult> Get([FromRoute] int page = 1, [FromRoute] int itemsPerPage = 10)
 	{
 		_logger.LogInformation("Begin Request for BuyRequests {page}", page);
-		return ServiceResponse(await _applicationBuyRequestService.GetAllAsync(page));
+		return ServiceResponse(await _applicationBuyRequestService.GetAllAsync(page, itemsPerPage));
 	}
 
 	/// <summary>
@@ -91,7 +91,7 @@ public class BuyRequestController : ApiControllerBase
 	[HttpPost]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Post([FromBody] BuyRequestDto obj)
+	public async Task<IActionResult> Post([FromBody] BuyRequestModel obj)
 	{
 		_logger.LogInformation("Begin Request for Create a BuyRequests({obj})", obj);
 		return ServiceResponse(await _applicationBuyRequestService.AddAsync(obj));
@@ -110,7 +110,7 @@ public class BuyRequestController : ApiControllerBase
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Put([FromBody] BuyRequestUpdateDto obj)
+	public async Task<IActionResult> Put([FromBody] BuyRequestUpdateModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update a BuyRequests({obj})", obj);
 		return ServiceResponse(await _applicationBuyRequestService.UpdateAsync(obj));
@@ -129,7 +129,7 @@ public class BuyRequestController : ApiControllerBase
 	[HttpPatch]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Patch([FromBody] BuyRequestPatchDto obj)
+	public async Task<IActionResult> Patch([FromBody] BuyRequestPatchModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update Status from {obj}", obj);
 		return ServiceResponse(await _applicationBuyRequestService.PatchAsync(obj));

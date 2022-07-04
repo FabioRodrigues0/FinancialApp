@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
+using CashBook.Application.Models;
 using Document.Domain.Models;
 using Infrastructure.Shared.Enums;
 
@@ -9,7 +9,7 @@ public class CashBookConverterAutoMapper : Profile
 {
 	public CashBookConverterAutoMapper()
 	{
-		CreateMap<(Documents obj, TypeRequest t, decimal dif), CashBookDto>()
+		CreateMap<(Documents obj, TypeRequest t, decimal dif), CashBookModel>()
 			.ForMember(to => to.Origin, from => from.MapFrom(x => Origin.Document))
 			.ForMember(to => to.OriginId, from => from.MapFrom(x => x.obj.Id))
 			.ForMember(to => to.Description, from => from.MapFrom(x => "Document nº" + x.obj.Number))

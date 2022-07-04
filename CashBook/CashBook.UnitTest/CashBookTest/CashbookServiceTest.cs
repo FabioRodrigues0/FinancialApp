@@ -1,6 +1,7 @@
 ﻿using CashBook.Application.Services;
 using CashBook.Data.Repositories.Interfaces;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
+using Infrastructure.Shared.Entities;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
@@ -26,16 +27,16 @@ public class CashBookServiceTest
 
 		var repository = Mocker.GetMock<ICashBookRepository>();
 		int totalPages = 1, page = 1;
-		var list = (cashBookFaker.listModel, totalPages, page); ;
-		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
+		var list = new PagesBase<CashBooks> { };
+		repository.Setup(x => x.GetAllAsync(page, 10)).ReturnsAsync(list);
 
 		var service = Mocker.CreateInstance<CashBookService>();
 
 		//Act
-		await service.GetAllAsync(1);
+		await service.GetAllAsync(1, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(1), Times.Once);
+		repository.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]

@@ -1,5 +1,5 @@
 ﻿using CashBook.Application.Application.Interface;
-using CashBook.Application.DTO;
+using CashBook.Application.Models;
 using Infrastructure.Shared.Messaging.Listener;
 using Infrastructure.Shared.Messaging.Settings;
 using Infrastructure.Shared.Messaging.Settings.Interface;
@@ -20,7 +20,7 @@ namespace MessageBroker.Consumer
 			IServiceProvider services,
 			ILogger<CashBookConsumer> logger,
 			IOptions<RabbitMqOptions> options,
-			IRabbitMQConnectionFactory factory) : base(services, logger, options, factory)
+			IRabbitMQConnectionFactory factory) : base(logger, options, factory)
 		{
 			_serviceProvider = services;
 			_logger = logger;
@@ -37,7 +37,7 @@ namespace MessageBroker.Consumer
 			try
 			{
 				_logger.LogInformation(" - Received :'{0}'", message);
-				var model = JsonConvert.DeserializeObject<CashBookDto>(message);
+				var model = JsonConvert.DeserializeObject<CashBookModel>(message);
 				_logger.LogInformation(" - Send to CashBook {obj}", message);
 				using var scope = _serviceProvider.CreateScope();
 				var applicationService = scope.ServiceProvider.GetRequiredService<IApplicationCashBookService>();

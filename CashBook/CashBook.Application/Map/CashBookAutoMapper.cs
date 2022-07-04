@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
-using CashBook.Domain.Models;
+using CashBook.Application.Models;
+using CashBook.Domain.Entities;
 
 namespace CashBook.Application.Map;
 
@@ -8,8 +8,7 @@ public class CashBookAutoMapper : Profile
 {
 	public CashBookAutoMapper()
 	{
-		CreateMap<CashBooks, CashBookDto>().ReverseMap();
-		CreateMap<CashBooks, CashBookUpdateDto>().ReverseMap();
-		CreateMap<(List<CashBooks> list, int totalPages, int page), (List<CashBookDto> list, int totalPages, int page)>().ReverseMap();
+		CreateMap<CashBooks, CashBookModel>().ReverseMap();
+		CreateMap<CashBooks, CashBookUpdateModel>().ReverseMap();
 	}
 }

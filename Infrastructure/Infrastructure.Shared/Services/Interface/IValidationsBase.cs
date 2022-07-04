@@ -1,4 +1,4 @@
-﻿using Infrastructure.Shared.Models;
+﻿using Infrastructure.Shared.Entities;
 
 namespace Infrastructure.Shared.Services.Interface
 {

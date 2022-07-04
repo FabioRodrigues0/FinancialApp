@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Document.Application.DTO;
+using Document.Application.Models;
 using Document.Domain.Models;
 using Infrastructure.Shared.Enums;
 using System;
@@ -34,7 +34,7 @@ public class DocumentFaker
 		.RuleFor(x => x.Total, x => x.Random.Decimal(1, 30))
 		.GenerateBetween(1, 3);
 
-	public List<DocumentDto> listDto = new Faker<DocumentDto>()
+	public List<DocumentModel> listDto = new Faker<DocumentModel>()
 		.RuleFor(x => x.Number, x => x.Random.String(1, 256))
 		.RuleFor(x => x.Date, x => DateTimeOffset.Now)
 		.RuleFor(x => x.DocumentType, x => x.PickRandom<TypeDocument>())

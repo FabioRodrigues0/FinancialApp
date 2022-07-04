@@ -13,12 +13,12 @@ namespace Infrastructure.Shared.Messaging.Settings
 			{
 				options.StringConnection = configuration["RabbitmqBaseSettings:StringConnection"];
 				options.QueueName = configuration["RabbitmqBaseSettings:QueueName"];
+				options.QueueNameMP = configuration["RabbitmqBaseSettings:QueueNameMP"];
 				options.Topic = configuration["RabbitmqBaseSettings:Topic"];
 				options.RoutingKey = configuration["RabbitmqBaseSettings:RoutingKey"];
 			});
 
 			services.AddSingleton<RabbitMqListener, RabbitMqListener>();
-			services.AddSingleton<IRabbitMQConnectionFactory, RabbitMQConnection>();
 		}
 	}
 }

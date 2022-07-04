@@ -1,5 +1,5 @@
 ﻿using CashBook.Data.Repositories.Interfaces;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
 using Infrastructure.Shared.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -50,8 +50,9 @@ public class CashBookRepository : RepositoryBase<CashBooks>, ICashBookRepository
 		_logger.LogInformation("{time} [INFO] - Calls CashBooks with OriginId {id}", DateTime.Now, id);
 		var result = await dbSet
 			.AsNoTracking()
+			.Where(c => c.OriginId == id)
 			.ToListAsync();
-		result.Select(c => c.OriginId == id);
+		//result.Select(c => c.OriginId == id);
 		return result;
 	}
 }

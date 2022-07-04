@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Moq.AutoMock;
-using Product.Application.DTO;
 using Product.Application.Map;
+using Product.Application.Models;
 using Product.UnitTest.ProductTest;
 using Shouldly;
 using Xunit;
@@ -32,7 +32,7 @@ public class AutoMapperTest
 		var documentFaker = new ProductsFaker();
 		var products = documentFaker.products;
 
-		var result = _mapper.Map<ProductsDto>(products);
+		var result = _mapper.Map<ProductsModel>(products);
 
 		result.ShouldNotBeNull();
 		result.ShouldSatisfyAllConditions(

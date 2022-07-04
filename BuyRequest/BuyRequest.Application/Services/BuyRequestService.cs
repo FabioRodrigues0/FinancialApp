@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using BuyRequest.Application.Services.Interfaces;
 using BuyRequest.Data.Repositories.Interfaces;
-using BuyRequest.Domain.Models;
-using CashBook.Application.DTO;
+using BuyRequest.Domain.Entities;
+using CashBook.Application.Models;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Enums;
 using Infrastructure.Shared.Messaging.Settings;
 using Infrastructure.Shared.Services;
@@ -57,7 +58,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		var result = await _buyRequestRepository.AddAsync(model);
 		if (Status.Finished.Equals(model.Status))
 		{
-			var cashbookDto = _mapper.Map<CashBookDto>((model, TypeRequest.Add, d));
+			var cashbookDto = _mapper.Map<CashBookModel>((model, TypeRequest.Add, d));
 			_cashBookPublisher.SendToRabbit(cashbookDto, queueName);
 		}
 		var movementsDto = _mapper.Map<MovementsDto>(model);
@@ -78,7 +79,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (response.Status == Status.Finished)
 		{
 			var dif = model.TotalValor - response.TotalValor;
-			var cashbookDto = _mapper.Map<CashBookDto>((model, TypeRequest.Update, dif));
+			var cashbookDto = _mapper.Map<CashBookModel>((model, TypeRequest.Update, dif));
 			_cashBookPublisher.SendToRabbit(cashbookDto, queueName);
 		}
 		var movementsDto = _mapper.Map<MovementsDto>(model);
@@ -99,7 +100,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		if (model.Status == Status.Finished)
 		{
 			var dif = model.TotalValor - response.TotalValor;
-			var cashbookDto = _mapper.Map<CashBookDto>((model, TypeRequest.Patch, dif));
+			var cashbookDto = _mapper.Map<CashBookModel>((model, TypeRequest.Patch, dif));
 			_cashBookPublisher.SendToRabbit(cashbookDto, queueName);
 		}
 		var movementsDto = _mapper.Map<MovementsDto>(model);
@@ -116,7 +117,7 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		var result = await _buyRequestRepository.RemoveAsync(obj);
 		if (obj.Status == Status.Finished)
 		{
-			var cashbookDto = _mapper.Map<CashBookDto>((obj, TypeRequest.Remove, d));
+			var cashbookDto = _mapper.Map<CashBookModel>((obj, TypeRequest.Remove, d));
 			_cashBookPublisher.SendToRabbit(cashbookDto, queueName);
 		}
 		var movementsDto = _mapper.Map<MovementsDto>(obj);
@@ -124,10 +125,10 @@ public class BuyRequestService : ServiceBase<BuyRequests>, IBuyRequestService
 		return result;
 	}
 
-	public override async Task<(List<BuyRequests> list, int totalPages, int page)> GetAllAsync(int page)
+	public override async Task<PagesBase<BuyRequests>> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _buyRequestRepository.GetAllAsync(page);
-		if (result.list == null)
+		var result = await _buyRequestRepository.GetAllAsync(page, itemsPerPage);
+		if (result.Models.Count == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);

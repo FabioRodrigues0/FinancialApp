@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using Infrastructure.Shared.Entities;
 using Moq;
 using Moq.AutoMock;
 using Product.Application.Application;
-using Product.Application.DTO;
 using Product.Application.Map;
+using Product.Application.Models;
 using Product.Application.Services.Interface;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -36,18 +37,18 @@ public class ProductsApplicationServiceTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 		int totalPages = 1, page = 1;
-		var list = (productsFaker.list, totalPages, page); ;
+		var list = new PagesBase<Products> { };
 
 		var repository = _mocker.GetMock<IProductsService>();
-		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page, 10)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ApplicationProductsService>();
 
 		//Act
-		await service.GetAllAsync(page);
+		await service.GetAllAsync(page, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(page, 10), Times.Once);
 	}
 
 	[Fact]
@@ -79,7 +80,7 @@ public class ProductsApplicationServiceTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsDto>(products);
+		var result = _mapper.Map<ProductsModel>(products);
 
 		var repository = _mocker.GetMock<IProductsService>();
 		repository.Setup(x => x.AddAsync(products));
@@ -105,7 +106,7 @@ public class ProductsApplicationServiceTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsWithIdDto>(products);
+		var result = _mapper.Map<ProductsWithIdModel>(products);
 
 		var repository = _mocker.GetMock<IProductsService>();
 		repository.Setup(x => x.UpdateAsync(products));

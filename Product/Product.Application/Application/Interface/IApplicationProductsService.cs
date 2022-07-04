@@ -1,20 +1,20 @@
 ﻿using Infrastructure.Shared.Enums;
-using Product.Application.DTO;
-using Product.Domain.Models;
+using Product.Application.Models;
+using Product.Domain.Entities;
 
 namespace Product.Application.Application.Interface;
 
 public interface IApplicationProductsService
 {
-	Task<Products> AddAsync(ProductsDto obj);
+	Task<Products> AddAsync(ProductsModel obj);
 
-	Task<ProductsDto> GetByIdAsync(Guid id);
+	Task<ProductsModel> GetByIdAsync(Guid id);
 
-	Task<PagesGetCategoryProductsDto> GetByCategoryAsync(ProductCategory category, int page);
+	Task<PagesGetCategoryProductsModel> GetByCategoryAsync(ProductCategory category, int page, int itemsPerPage);
 
-	Task<PagesGetAllProductsDto> GetAllAsync(int page);
+	Task<PagesGetAllProductsModel> GetAllAsync(int page, int itemsPerPage);
 
-	Task<Products> UpdateAsync(ProductsWithIdDto obj);
+	Task<Products> UpdateAsync(ProductsWithIdModel obj);
 
 	Task<bool> RemoveAsync(Guid id);
 }

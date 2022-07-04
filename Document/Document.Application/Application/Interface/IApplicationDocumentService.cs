@@ -1,19 +1,20 @@
-﻿using Document.Application.DTO;
+﻿using Document.Application.Models;
 using Document.Domain.Models;
+using Infrastructure.Shared.Entities;
 
 namespace Document.Application.Application.Interface;
 
 public interface IApplicationDocumentService
 {
-	Task<Documents> AddAsync(DocumentDto obj);
+	Task<Documents> AddAsync(DocumentModel obj);
 
-	Task<DocumentDto> GetByIdAsync(Guid id);
+	Task<DocumentModel> GetByIdAsync(Guid id);
 
-	Task<PagesDocumentDto> GetAllAsync(int page);
+	Task<PagesDocumentModel> GetAllAsync(int page, int itemsPerPage);
 
-	Task<Documents> UpdateAsync(DocumentUpdateDto obj);
+	Task<Documents> UpdateAsync(DocumentUpdateModel obj);
 
-	Task<Documents> PatchAsync(DocumentPatchDto obj);
+	Task<Documents> PatchAsync(DocumentPatchModel obj);
 
 	Task<bool> RemoveAsync(Guid id);
 }

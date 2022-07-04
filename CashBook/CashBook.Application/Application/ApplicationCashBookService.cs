@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CashBook.Application.Application.Interface;
-using CashBook.Application.DTO;
+using CashBook.Application.Models;
 using CashBook.Application.Services.Interface;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
 
 namespace CashBook.Application.Application;
 
@@ -19,35 +19,33 @@ public class ApplicationCashBookService : IApplicationCashBookService
 		_mapper = mapper;
 	}
 
-	public async Task<CashBooks> AddAsync(CashBookDto obj)
+	public async Task<CashBooks> AddAsync(CashBookModel obj)
 	{
 		var result = _mapper.Map<CashBooks>(obj);
 		return await _cashBookService.AddAsync(result);
 	}
 
-	public async Task<CashBookDto> GetByIdAsync(Guid id)
+	public async Task<CashBookModel> GetByIdAsync(Guid id)
 	{
 		var cashBooks = await _cashBookService.GetByIdAsync(id);
-		return _mapper.Map<CashBookDto>(cashBooks);
+		return _mapper.Map<CashBookModel>(cashBooks);
 	}
 
-	public async Task<List<CashBookDto>> GetByOriginIdAsync(Guid id)
+	public async Task<List<CashBookModel>> GetByOriginIdAsync(Guid id)
 	{
 		var cashBooks = await _cashBookService.GetByOriginIdAsync(id);
-		return _mapper.Map<List<CashBookDto>>(cashBooks);
+		return _mapper.Map<List<CashBookModel>>(cashBooks);
 	}
 
-	public async Task<PagesCashBookDto> GetAllAsync(int page)
+	public async Task<PagesCashBookModel> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _cashBookService.GetAllAsync(page);
-		if (result.list.Count == 0)
+		var result = await _cashBookService.GetAllAsync(page, itemsPerPage);
+		if (result.Models.Count == 0)
 			return null;
-		var toDto = _mapper.Map<List<CashBookDto>>(result.list);
-		var newResult = (toDto, result.totalPages, page);
-		return _mapper.Map<PagesCashBookDto>(newResult);
+		return _mapper.Map<PagesCashBookModel>(result);
 	}
 
-	public async Task<CashBooks> UpdateAsync(CashBookUpdateDto obj)
+	public async Task<CashBooks> UpdateAsync(CashBookUpdateModel obj)
 	{
 		var result = _mapper.Map<CashBooks>(obj);
 		return await _cashBookService.UpdateAsync(result);

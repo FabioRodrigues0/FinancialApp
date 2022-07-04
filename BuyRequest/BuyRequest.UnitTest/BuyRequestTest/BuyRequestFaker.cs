@@ -1,6 +1,6 @@
 ﻿using Bogus;
-using BuyRequest.Application.DTO;
-using BuyRequest.Domain.Models;
+using BuyRequest.Application.Models;
+using BuyRequest.Domain.Entities;
 using Infrastructure.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -17,13 +17,13 @@ public class BuyRequestFaker
 		.RuleFor(x => x.Quantity, x => x.Random.Int(1, 3))
 		.RuleFor(x => x.Valor, x => x.Random.Decimal(1, 30));
 
-	public static Faker<BuyRequestProductDto> buyRequestProductsDto = new Faker<BuyRequestProductDto>()
+	public static Faker<BuyRequestProductModel> buyRequestProductsDto = new Faker<BuyRequestProductModel>()
 		.RuleFor(x => x.ProductDescription, x => x.Random.String(1, 256))
 		.RuleFor(x => x.ProductCategory, x => x.PickRandom<ProductCategory>())
 		.RuleFor(x => x.Quantity, x => x.Random.Int(1, 3))
 		.RuleFor(x => x.Valor, x => x.Random.Decimal(1, 30));
 
-	public static Faker<BuyRequestDto> buyRequestFaker = new Faker<BuyRequestDto>()
+	public static Faker<BuyRequestModel> buyRequestFaker = new Faker<BuyRequestModel>()
 		.RuleFor(x => x.Code, x => x.Random.Number(1, 50000))
 		.RuleFor(x => x.Date, DateTimeOffset.Now)
 		.RuleFor(x => x.DeliveryDate, DateTimeOffset.Now.AddDays(6))
@@ -52,12 +52,12 @@ public class BuyRequestFaker
 		.RuleFor(x => x.TotalValor, 0)
 		.RuleFor(x => x.Products, x => buyRequestProducts.GenerateBetween(1, 3));
 
-	public PagesBuyRequestDto pageBuyRequest = new Faker<PagesBuyRequestDto>()
+	public PagesBuyRequestModel pageBuyRequest = new Faker<PagesBuyRequestModel>()
 		.RuleFor(x => x.Models, x => buyRequestFaker.GenerateBetween(1, 3))
 		.RuleFor(x => x.CurrentPage, 1)
 		.RuleFor(x => x.Pages, 1);
 
-	public List<BuyRequestDto> listDto = new Faker<BuyRequestDto>()
+	public List<BuyRequestModel> listDto = new Faker<BuyRequestModel>()
 		.RuleFor(x => x.Code, x => x.Random.Number(1, 50000))
 		.RuleFor(x => x.Date, DateTimeOffset.Now)
 		.RuleFor(x => x.DeliveryDate, DateTimeOffset.Now.AddDays(6))

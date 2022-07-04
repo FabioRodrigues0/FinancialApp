@@ -3,8 +3,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Product.Api.Extentions;
 using Product.Data;
-using Product.Domain.Models;
-using Product.Domain.Validations;
+using Product.Domain.Entities;
+using Product.Domain.Entities.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 var ConsoleLoggerFactory = LoggerFactory.Create(builder => { builder.AddDebug(); });

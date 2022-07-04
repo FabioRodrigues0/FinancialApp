@@ -1,17 +1,17 @@
-﻿using CashBook.Application.DTO;
-using CashBook.Domain.Models;
+﻿using CashBook.Application.Models;
+using CashBook.Domain.Entities;
 
 namespace CashBook.Application.Application.Interface;
 
 public interface IApplicationCashBookService
 {
-	Task<CashBooks> AddAsync(CashBookDto obj);
+	Task<CashBooks> AddAsync(CashBookModel obj);
 
-	Task<CashBookDto> GetByIdAsync(Guid id);
+	Task<CashBookModel> GetByIdAsync(Guid id);
 
-	Task<List<CashBookDto>> GetByOriginIdAsync(Guid id);
+	Task<List<CashBookModel>> GetByOriginIdAsync(Guid id);
 
-	Task<PagesCashBookDto> GetAllAsync(int page);
+	Task<PagesCashBookModel> GetAllAsync(int page, int itemsPerPage);
 
-	Task<CashBooks> UpdateAsync(CashBookUpdateDto obj);
+	Task<CashBooks> UpdateAsync(CashBookUpdateModel obj);
 }

@@ -6,17 +6,17 @@ namespace Infrastructure.Shared.Messaging.Settings
 {
 	public class RabbitMQConnection : IRabbitMQConnectionFactory
 	{
-		private readonly RabbitMqOptions connectionDetails;
+		private readonly RabbitMqOptions _connectionDetails;
 
 		public RabbitMQConnection(IOptions<RabbitMqOptions> connectionDetails)
 		{
-			this.connectionDetails = connectionDetails.Value;
+			_connectionDetails = connectionDetails.Value;
 		}
 
 		public IConnection CreateConnection()
 		{
 			var factory = new ConnectionFactory {
-				HostName = connectionDetails.StringConnection
+				HostName = _connectionDetails.GetRabbitMQ()
 			};
 			var connection = factory.CreateConnection();
 			return connection;

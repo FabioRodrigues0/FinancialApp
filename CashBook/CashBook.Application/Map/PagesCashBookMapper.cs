@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using CashBook.Application.DTO;
+using CashBook.Application.Models;
+using CashBook.Domain.Entities;
+using Infrastructure.Shared.Entities;
 
 namespace CashBook.Application.Map;
 
@@ -7,10 +9,10 @@ public class PagesCashBookMapper : Profile
 {
 	public PagesCashBookMapper()
 	{
-		CreateMap<(List<CashBookDto> list, int totalPages, int page), PagesCashBookDto>()
-				.ForMember(to => to.Models, from => from.MapFrom(x => x.list))
-				.ForMember(to => to.CurrentPage, from => from.MapFrom(x => x.page))
-				.ForMember(to => to.Pages, from => from.MapFrom(x => x.totalPages))
-				.ForMember(to => to.Total, from => from.MapFrom(x => x.list.Sum(y => y.Valor)));
+		CreateMap<PagesBase<CashBooks>, PagesCashBookModel>()
+				.ForMember(to => to.Models, from => from.MapFrom(x => x.Models))
+				.ForMember(to => to.CurrentPage, from => from.MapFrom(x => x.CurrentPage))
+				.ForMember(to => to.Pages, from => from.MapFrom(x => x.Pages))
+				.ForMember(to => to.Total, from => from.MapFrom(x => x.Models.Sum(y => y.Valor)));
 	}
 }

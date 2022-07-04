@@ -1,4 +1,4 @@
-﻿using CashBook.Domain.Models;
+﻿using CashBook.Domain.Entities;
 using Infrastructure.Shared.Repository.Interface;
 
 namespace CashBook.Data.Repositories.Interfaces;

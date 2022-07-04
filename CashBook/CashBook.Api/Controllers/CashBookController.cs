@@ -1,5 +1,5 @@
 ﻿using CashBook.Application.Application.Interface;
-using CashBook.Application.DTO;
+using CashBook.Application.Models;
 using Infrastructure.Shared.Controller;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -30,14 +30,14 @@ public class CashBookController : ApiControllerBase
 	/// <response code="400">
 	/// When a request error occurs but a message reporting the error is returned
 	/// </response>
-	[HttpGet("page/{page}")]
+	[HttpGet("per/{itemsPerPage}/page/{page}")]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Get(int page)
+	public async Task<IActionResult> Get([FromRoute] int page = 1, [FromRoute] int itemsPerPage = 10)
 	{
 		_logger.LogInformation("Begin Request for CashBooks {page}", page);
-		return ServiceResponse(await _applicationCashBookService.GetAllAsync(page));
+		return ServiceResponse(await _applicationCashBookService.GetAllAsync(page, itemsPerPage));
 	}
 
 	/// <summary>
@@ -91,7 +91,7 @@ public class CashBookController : ApiControllerBase
 	[HttpPost]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Post([FromBody] CashBookDto obj)
+	public async Task<IActionResult> Post([FromBody] CashBookModel obj)
 	{
 		_logger.LogInformation("Begin Request for Create a CashBook({obj})", obj);
 		return ServiceResponse(await _applicationCashBookService.AddAsync(obj));
@@ -110,7 +110,7 @@ public class CashBookController : ApiControllerBase
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Put([FromBody] CashBookUpdateDto obj)
+	public async Task<IActionResult> Put([FromBody] CashBookUpdateModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update a CashBook({obj})", obj);
 		return ServiceResponse(await _applicationCashBookService.UpdateAsync(obj));

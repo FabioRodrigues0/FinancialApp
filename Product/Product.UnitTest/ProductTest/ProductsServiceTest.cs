@@ -1,9 +1,10 @@
-﻿using Infrastructure.Shared.Enums;
+﻿using Infrastructure.Shared.Entities;
+using Infrastructure.Shared.Enums;
 using Moq;
 using Moq.AutoMock;
 using Product.Application.Services;
 using Product.Data.Repositories.Interface;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,18 +26,18 @@ public class ProductsServiceTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 		int totalPages = 1, page = 1;
-		var list = (productsFaker.list, totalPages, page); ;
+		var list = new PagesBase<Products> { };
 
 		var repository = _mocker.GetMock<IProductsRepository>();
-		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page, 10)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ProductsService>();
 
 		//Act
-		await service.GetAllAsync(1);
+		await service.GetAllAsync(1, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(1), Times.Once);
+		repository.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]
@@ -46,19 +47,19 @@ public class ProductsServiceTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 		int totalPages = 1, page = 1;
-		var list = (productsFaker.list, totalPages, page);
+		var list = new PagesBase<Products> { };
 		var category = ProductCategory.Physical;
 
 		var repository = _mocker.GetMock<IProductsRepository>();
-		repository.Setup(x => x.GetAllAsync(x => x.Category == category, page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(x => x.Category == category, page, 10)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ProductsService>();
 
 		//Act
-		await service.GetByCategoryAsync(category, 1);
+		await service.GetByCategoryAsync(category, 1, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(x => x.Category == category, page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(x => x.Category == category, page, 10), Times.Once);
 	}
 
 	[Fact]

@@ -1,11 +1,10 @@
 ﻿using Infrastructure.Shared.Data;
-using Infrastructure.Shared.Models;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
-
 
 namespace Infrastructure.Shared.Repository
 {
@@ -45,29 +44,29 @@ namespace Infrastructure.Shared.Repository
 			return obj;
 		}
 
-		public virtual async Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page)
+		public virtual async Task<PagesBase<T>> GetAllAsync(int page, int itemsPerPage)
 		{
-			const int pageResults = 10;
-
 			var query = dbSet
 				.AsNoTracking()
 				.Skip((page - 1) * dbSet.Count())
-				.Take(pageResults);
+				.Take(itemsPerPage);
 
 			if (Include != null)
 				query = Include(query);
 			_logger.LogInformation("{time} [INFO] - Calls a List {T}", DateTime.Now, query.GetType());
 			var result = await query.ToListAsync();
-			var totalPages = (int)Math.Ceiling(dbSet.Count() / 10f);
-			return (result, totalPages, page);
+			var totalPages = (int)Math.Ceiling(dbSet.Count() / (float)itemsPerPage);
+			return ConvertToPages(result, totalPages, page);
 		}
 
-		public async Task<(List<T> list, int totalPages, int page)> GetAllAsync(Expression<Func<T, bool>> predicate, int page)
+		public async Task<PagesBase<T>> GetAllAsync(Expression<Func<T, bool>> predicate, int page, int itemsPerPage)
 		{
-			var query = dbSet.Where(predicate);
+			var query = dbSet.Where(predicate)
+										.Skip((page - 1) * dbSet.Count())
+										.Take(itemsPerPage);
 			var result = await query.ToListAsync();
-			var totalPages = (int)Math.Ceiling(result.Count() / 10f);
-			return (result, totalPages, page);
+			var totalPages = (int)Math.Ceiling(result.Count() / (float)itemsPerPage);
+			return ConvertToPages(result, totalPages, page);
 		}
 
 		public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
@@ -123,6 +122,11 @@ namespace Infrastructure.Shared.Repository
 			dbSet.Update(obj);
 			await _dataContext.SaveChangesAsync();
 			return obj;
+		}
+
+		public virtual PagesBase<T> ConvertToPages(List<T> list, int page, int totalPages)
+		{
+			return new PagesBase<T> { Models = list, CurrentPage = totalPages, Pages = page };
 		}
 	}
 }

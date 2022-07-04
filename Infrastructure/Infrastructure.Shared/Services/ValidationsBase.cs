@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Infrastructure.Shared.Models;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.Extensions.Logging;
 

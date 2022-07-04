@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using BuyRequest.Application.Application;
-using BuyRequest.Application.DTO;
 using BuyRequest.Application.Map;
+using BuyRequest.Application.Models;
 using BuyRequest.Application.Services.Interfaces;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
+using Infrastructure.Shared.Models;
 using Moq;
 using Moq.AutoMock;
 using System.Collections.Generic;
@@ -38,18 +39,18 @@ public class BuyRequestApplicationServiceTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var pageBuyRequest = buyRequestFaker.pageBuyRequest;
 		int totalPages = 1, page = 1;
-		var list = (new List<BuyRequests>(), totalPages, page);
+		var list = new PagesBase<BuyRequests> { };
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
-		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page, 10)).ReturnsAsync(list);
 
 		var service = _mocker.CreateInstance<ApplicationBuyRequestService>();
 
 		//Act
-		await service.GetAllAsync(page);
+		await service.GetAllAsync(page, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(page, 10), Times.Once);
 	}
 
 	[Fact]
@@ -100,7 +101,7 @@ public class BuyRequestApplicationServiceTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestModel>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
 		repository.Setup(x => x.AddAsync(buyRequest));
@@ -126,7 +127,7 @@ public class BuyRequestApplicationServiceTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestUpdateDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestUpdateModel>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
 		repository.Setup(x => x.GetByIdAsync(buyRequest.Id)).ReturnsAsync(buyRequest);
@@ -153,7 +154,7 @@ public class BuyRequestApplicationServiceTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestPatchDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestPatchModel>(buyRequest);
 
 		var repository = _mocker.GetMock<IBuyRequestService>();
 		repository.Setup(x => x.GetByIdAsync(buyRequest.Id)).ReturnsAsync(buyRequest);

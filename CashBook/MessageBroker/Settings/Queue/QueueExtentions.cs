@@ -13,6 +13,7 @@ public static class QueueExtentions
 	{
 		services.AddHostedService<CashBookConsumer>();
 		services.AddScoped<RabbitMqOptions, RabbitMqOptions>();
+		services.AddSingleton<IRabbitMQConnectionFactory, RabbitMQConnection>();
 	}
 
 	public static void AddPublisher(this IServiceCollection services)
