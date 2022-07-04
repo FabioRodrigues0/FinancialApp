@@ -3,7 +3,7 @@ using Infrastructure.Shared.Enums;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Product.Application.Application.Interface;
-using Product.Application.DTO;
+using Product.Application.Models;
 
 namespace Product.Api.Controllers;
 
@@ -31,14 +31,14 @@ public class ProductsController : ApiControllerBase
 	/// <response code="400">
 	/// When a request error occurs but a message reporting the error is returned
 	/// </response>
-	[HttpGet("page/{page}")]
+	[HttpGet("per/{itemsPerPage}/page/{page}")]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Get(int page)
+	public async Task<IActionResult> Get([FromRoute] int page = 1, [FromRoute] int itemsPerPage = 10)
 	{
 		_logger.LogInformation("Begin Request for Product {page}", page);
-		return ServiceResponse(await _applicationProductService.GetAllAsync(page));
+		return ServiceResponse(await _applicationProductService.GetAllAsync(page, itemsPerPage));
 	}
 
 	/// <summary>
@@ -69,14 +69,14 @@ public class ProductsController : ApiControllerBase
 	/// <response code="400">
 	/// When a request error occurs but a message reporting the error is returned
 	/// </response>
-	[HttpGet("category/{category}/{page}")]
+	[HttpGet("category/{category}/per/{itemsPerPage}/page/{page}")]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> GetByCategoryAsync([FromRoute] ProductCategory category, [FromRoute] int page = 1)
+	public async Task<IActionResult> GetByCategoryAsync([FromRoute] ProductCategory category, [FromRoute] int page = 1, [FromRoute] int itemsPerPage = 10)
 	{
 		_logger.LogInformation("Begin Request for Products with Category = {category}", category);
-		return ServiceResponse(await _applicationProductService.GetByCategoryAsync(category, page));
+		return ServiceResponse(await _applicationProductService.GetByCategoryAsync(category, page, itemsPerPage));
 	}
 
 	/// <summary>
@@ -92,7 +92,7 @@ public class ProductsController : ApiControllerBase
 	[HttpPost]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Post([FromBody] ProductsDto obj)
+	public async Task<IActionResult> Post([FromBody] ProductsModel obj)
 	{
 		_logger.LogInformation("Begin Request for Create a Product({obj})", obj);
 		return ServiceResponse(await _applicationProductService.AddAsync(obj));
@@ -111,7 +111,7 @@ public class ProductsController : ApiControllerBase
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Put([FromBody] ProductsWithIdDto obj)
+	public async Task<IActionResult> Put([FromBody] ProductsWithIdModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update a Product({obj})", obj);
 		return ServiceResponse(await _applicationProductService.UpdateAsync(obj));

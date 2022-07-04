@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Document.Api.Controllers;
 using Document.Application.Application.Interface;
-using Document.Application.DTO;
 using Document.Application.Map;
+using Document.Application.Models;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
@@ -35,7 +35,7 @@ public class DocumentControllerTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentDto>(document);
+		var result = _mapper.Map<DocumentModel>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
 		application.Setup(x => x.AddAsync(result));
@@ -46,7 +46,7 @@ public class DocumentControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.AddAsync(It.IsAny<DocumentDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<DocumentModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -54,7 +54,7 @@ public class DocumentControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationDocumentService>();
-		application.Setup(x => x.GetAllAsync(1));
+		application.Setup(x => x.GetAllAsync(1, 10));
 
 		var controller = _mocker.CreateInstance<DocumentController>();
 
@@ -62,7 +62,7 @@ public class DocumentControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAllAsync(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class DocumentControllerTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentUpdateDto>(document);
+		var result = _mapper.Map<DocumentUpdateModel>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
 		application.Setup(x => x.UpdateAsync(result));
@@ -83,7 +83,7 @@ public class DocumentControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.UpdateAsync(It.IsAny<DocumentUpdateDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<DocumentUpdateModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -93,7 +93,7 @@ public class DocumentControllerTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentPatchDto>(document);
+		var result = _mapper.Map<DocumentPatchModel>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
 		application.Setup(x => x.PatchAsync(result));
@@ -104,7 +104,7 @@ public class DocumentControllerTest
 		await controller.Patch(result);
 
 		// Assert
-		application.Verify(x => x.PatchAsync(It.IsAny<DocumentPatchDto>()), Times.Once);
+		application.Verify(x => x.PatchAsync(It.IsAny<DocumentPatchModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -114,7 +114,7 @@ public class DocumentControllerTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentUpdateDto>(document);
+		var result = _mapper.Map<DocumentUpdateModel>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
 		application.Setup(x => x.RemoveAsync(result.Id));
@@ -135,7 +135,7 @@ public class DocumentControllerTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentUpdateDto>(document);
+		var result = _mapper.Map<DocumentUpdateModel>(document);
 
 		var application = _mocker.GetMock<IApplicationDocumentService>();
 		application.Setup(x => x.GetByIdAsync(result.Id));

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BuyRequest.Domain.Models;
-using CashBook.Application.DTO;
+using BuyRequest.Domain.Entities;
+using CashBook.Application.Models;
 using Infrastructure.Shared.Enums;
 
 namespace BuyRequest.Application.Map;
@@ -9,7 +9,7 @@ public class CashBookConverterAutoMapper : Profile
 {
 	public CashBookConverterAutoMapper()
 	{
-		CreateMap<(BuyRequests obj, TypeRequest t, decimal dif), CashBookDto>()
+		CreateMap<(BuyRequests obj, TypeRequest t, decimal dif), CashBookModel>()
 			.ForMember(to => to.Origin, from => from.MapFrom(x => Origin.BuyRequest))
 			.ForMember(to => to.OriginId, from => from.MapFrom(x => x.obj.Id))
 			.ForMember(to => to.Description, from => from.MapFrom(x => "Buy Request nº" + x.obj.Code))

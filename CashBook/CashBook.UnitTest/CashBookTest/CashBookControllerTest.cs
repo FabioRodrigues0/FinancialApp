@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CashBook.Api.Controllers;
 using CashBook.Application.Application.Interface;
-using CashBook.Application.DTO;
 using CashBook.Application.Map;
+using CashBook.Application.Models;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
@@ -35,7 +35,7 @@ public class CashBookControllerTest
 		var cashBookFaker = new CashBookFaker();
 		var cashBook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookDto>(cashBook);
+		var result = _mapper.Map<CashBookModel>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
 		application.Setup(x => x.AddAsync(result));
@@ -46,7 +46,7 @@ public class CashBookControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.AddAsync(It.IsAny<CashBookDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<CashBookModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -54,7 +54,7 @@ public class CashBookControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationCashBookService>();
-		application.Setup(x => x.GetAllAsync(1));
+		application.Setup(x => x.GetAllAsync(1, 10));
 
 		var controller = _mocker.CreateInstance<CashBookController>();
 
@@ -62,7 +62,7 @@ public class CashBookControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAllAsync(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class CashBookControllerTest
 		var cashBookFaker = new CashBookFaker();
 		var cashBook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
+		var result = _mapper.Map<CashBookUpdateModel>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
 		application.Setup(x => x.UpdateAsync(result));
@@ -83,7 +83,7 @@ public class CashBookControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.UpdateAsync(It.IsAny<CashBookUpdateDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<CashBookUpdateModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -93,7 +93,7 @@ public class CashBookControllerTest
 		var cashBookFaker = new CashBookFaker();
 		var cashBook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
+		var result = _mapper.Map<CashBookUpdateModel>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
 		application.Setup(x => x.GetByIdAsync(result.Id));
@@ -114,7 +114,7 @@ public class CashBookControllerTest
 		var cashBookFaker = new CashBookFaker();
 		var cashBook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookUpdateDto>(cashBook);
+		var result = _mapper.Map<CashBookUpdateModel>(cashBook);
 
 		var application = _mocker.GetMock<IApplicationCashBookService>();
 		application.Setup(x => x.GetByOriginIdAsync(result.OriginId));

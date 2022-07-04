@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Shared.Repository;
 using Microsoft.Extensions.Logging;
 using Product.Data.Repositories.Interface;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 
 namespace Product.Data.Repositories;
 

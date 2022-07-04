@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BuyRequest.Api.Controllers;
 using BuyRequest.Application.Application.Interface;
-using BuyRequest.Application.DTO;
 using BuyRequest.Application.Map;
+using BuyRequest.Application.Models;
 using Moq;
 using Moq.AutoMock;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ public class DocumentControllerTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestModel>(buyRequest);
 
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
 		application.Setup(x => x.AddAsync(result));
@@ -47,7 +47,7 @@ public class DocumentControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.AddAsync(It.IsAny<BuyRequestDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<BuyRequestModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -55,7 +55,7 @@ public class DocumentControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
-		application.Setup(x => x.GetAllAsync(1));
+		application.Setup(x => x.GetAllAsync(1, 10));
 
 		var controller = _mocker.CreateInstance<BuyRequestController>();
 
@@ -63,7 +63,7 @@ public class DocumentControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAllAsync(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]
@@ -73,7 +73,7 @@ public class DocumentControllerTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestUpdateDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestUpdateModel>(buyRequest);
 
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
 		application.Setup(x => x.UpdateAsync(result));
@@ -84,7 +84,7 @@ public class DocumentControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.UpdateAsync(It.IsAny<BuyRequestUpdateDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<BuyRequestUpdateModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -94,7 +94,7 @@ public class DocumentControllerTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestPatchDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestPatchModel>(buyRequest);
 
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
 		application.Setup(x => x.PatchAsync(result));
@@ -105,7 +105,7 @@ public class DocumentControllerTest
 		await controller.Patch(result);
 
 		// Assert
-		application.Verify(x => x.PatchAsync(It.IsAny<BuyRequestPatchDto>()), Times.Once);
+		application.Verify(x => x.PatchAsync(It.IsAny<BuyRequestPatchModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -115,7 +115,7 @@ public class DocumentControllerTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestUpdateDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestUpdateModel>(buyRequest);
 
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
 		application.Setup(x => x.RemoveAsync(result.Id));
@@ -136,7 +136,7 @@ public class DocumentControllerTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestUpdateDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestUpdateModel>(buyRequest);
 
 		var application = _mocker.GetMock<IApplicationBuyRequestService>();
 		application.Setup(x => x.GetByIdAsync(result.Id));

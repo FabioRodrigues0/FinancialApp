@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Document.Application.Application.Interface;
-using Document.Application.DTO;
+using Document.Application.Models;
 using Document.Application.Services.Interface;
 using Document.Domain.Models;
+using Infrastructure.Shared.Entities;
 
 namespace Document.Application.Application;
 
@@ -17,35 +18,31 @@ public class ApplicationDocumentService : IApplicationDocumentService
 		_mapper = mapper;
 	}
 
-	public async Task<Documents> AddAsync(DocumentDto obj)
+	public async Task<Documents> AddAsync(DocumentModel obj)
 	{
 		var documents = _mapper.Map<Documents>(obj);
 		return await _documentService.AddAsync(documents);
 	}
 
-	public async Task<DocumentDto> GetByIdAsync(Guid id)
+	public async Task<DocumentModel> GetByIdAsync(Guid id)
 	{
 		var documents = await _documentService.GetByIdAsync(id);
-		return _mapper.Map<DocumentDto>(documents);
+		return _mapper.Map<DocumentModel>(documents);
 	}
 
-	public async Task<PagesDocumentDto> GetAllAsync(int page)
+	public async Task<PagesDocumentModel> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _documentService.GetAllAsync(page);
-		if (result.list.Count == 0)
-			return null;
-		var toDto = _mapper.Map<List<DocumentDto>>(result.list);
-		var newResult = (toDto, result.totalPages, page);
-		return _mapper.Map<PagesDocumentDto>(newResult);
+		var result = await _documentService.GetAllAsync(page, itemsPerPage);
+		return _mapper.Map<PagesDocumentModel>(result);
 	}
 
-	public async Task<Documents> UpdateAsync(DocumentUpdateDto obj)
+	public async Task<Documents> UpdateAsync(DocumentUpdateModel obj)
 	{
 		var result = _mapper.Map<Documents>(obj);
 		return await _documentService.UpdateAsync(result);
 	}
 
-	public async Task<Documents> PatchAsync(DocumentPatchDto obj)
+	public async Task<Documents> PatchAsync(DocumentPatchModel obj)
 	{
 		var result = _mapper.Map<Documents>(obj);
 		return await _documentService.PatchAsync(result);

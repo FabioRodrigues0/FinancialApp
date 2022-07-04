@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Document.Application.DTO;
 using Document.Application.Map;
+using Document.Application.Models;
 using Document.UnitTest.DocumentTest;
 using Moq.AutoMock;
 using Shouldly;
@@ -32,7 +32,7 @@ public class AutoMapperTest
 		var documentFaker = new DocumentFaker();
 		var document = documentFaker.document;
 
-		var result = _mapper.Map<DocumentDto>(document);
+		var result = _mapper.Map<DocumentModel>(document);
 
 		result.ShouldNotBeNull();
 		result.ShouldSatisfyAllConditions(

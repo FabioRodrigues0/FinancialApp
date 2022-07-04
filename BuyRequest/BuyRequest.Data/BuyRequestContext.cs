@@ -1,5 +1,5 @@
 ﻿using BuyRequest.Data.Configurations;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
 using Infrastructure.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 

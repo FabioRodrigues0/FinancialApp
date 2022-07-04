@@ -3,8 +3,8 @@ using Moq;
 using Moq.AutoMock;
 using Product.Api.Controllers;
 using Product.Application.Application.Interface;
-using Product.Application.DTO;
 using Product.Application.Map;
+using Product.Application.Models;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -35,7 +35,7 @@ public class ProductsControllerTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsDto>(products);
+		var result = _mapper.Map<ProductsModel>(products);
 
 		var application = _mocker.GetMock<IApplicationProductsService>();
 		application.Setup(x => x.AddAsync(result));
@@ -46,7 +46,7 @@ public class ProductsControllerTest
 		await controller.Post(result);
 
 		// Assert
-		application.Verify(x => x.AddAsync(It.IsAny<ProductsDto>()), Times.Once);
+		application.Verify(x => x.AddAsync(It.IsAny<ProductsModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -54,7 +54,7 @@ public class ProductsControllerTest
 	{
 		// Arrange
 		var application = _mocker.GetMock<IApplicationProductsService>();
-		application.Setup(x => x.GetAllAsync(1));
+		application.Setup(x => x.GetAllAsync(1, 10));
 
 		var controller = _mocker.CreateInstance<ProductsController>();
 
@@ -62,7 +62,7 @@ public class ProductsControllerTest
 		await controller.Get(1);
 
 		// Assert
-		application.Verify(x => x.GetAllAsync(1), Times.Once);
+		application.Verify(x => x.GetAllAsync(1, 10), Times.Once);
 	}
 
 	[Fact]
@@ -72,7 +72,7 @@ public class ProductsControllerTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsWithIdDto>(products);
+		var result = _mapper.Map<ProductsWithIdModel>(products);
 
 		var application = _mocker.GetMock<IApplicationProductsService>();
 		application.Setup(x => x.UpdateAsync(result));
@@ -83,7 +83,7 @@ public class ProductsControllerTest
 		await controller.Put(result);
 
 		// Assert
-		application.Verify(x => x.UpdateAsync(It.IsAny<ProductsWithIdDto>()), Times.Once);
+		application.Verify(x => x.UpdateAsync(It.IsAny<ProductsWithIdModel>()), Times.Once);
 	}
 
 	[Fact]
@@ -93,7 +93,7 @@ public class ProductsControllerTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsWithIdDto>(products);
+		var result = _mapper.Map<ProductsWithIdModel>(products);
 
 		var application = _mocker.GetMock<IApplicationProductsService>();
 		application.Setup(x => x.RemoveAsync(result.Id));
@@ -114,7 +114,7 @@ public class ProductsControllerTest
 		var productsFaker = new ProductsFaker();
 		var products = productsFaker.products;
 
-		var result = _mapper.Map<ProductsWithIdDto>(products);
+		var result = _mapper.Map<ProductsWithIdModel>(products);
 
 		var application = _mocker.GetMock<IApplicationProductsService>();
 		application.Setup(x => x.GetByIdAsync(result.Id));

@@ -1,5 +1,5 @@
 ﻿using Document.Application.Application.Interface;
-using Document.Application.DTO;
+using Document.Application.Models;
 using Infrastructure.Shared.Controller;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -30,14 +30,14 @@ public class DocumentController : ApiControllerBase
 	/// <response code="400">
 	/// When a request error occurs but a message reporting the error is returned
 	/// </response>
-	[HttpGet("page/{page}")]
+	[HttpGet("/per/{itemsPerPage}/page/{page}")]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(204)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Get([FromRoute] int page)
+	public async Task<IActionResult> Get([FromRoute] int page = 1, [FromRoute] int itemsPerPage = 10)
 	{
 		_logger.LogInformation("Begin Request for Documents {page}", page);
-		return ServiceResponse(await _applicationDocumentService.GetAllAsync(page));
+		return ServiceResponse(await _applicationDocumentService.GetAllAsync(page, itemsPerPage));
 	}
 
 	/// <summary>
@@ -72,7 +72,7 @@ public class DocumentController : ApiControllerBase
 	[HttpPost]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Post([FromBody] DocumentDto obj)
+	public async Task<IActionResult> Post([FromBody] DocumentModel obj)
 	{
 		_logger.LogInformation("Begin Request for Create a Document({obj})", obj);
 		return ServiceResponse(await _applicationDocumentService.AddAsync(obj));
@@ -91,7 +91,7 @@ public class DocumentController : ApiControllerBase
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Put([FromBody] DocumentUpdateDto obj)
+	public async Task<IActionResult> Put([FromBody] DocumentUpdateModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update a Document({obj})", obj);
 		return ServiceResponse(await _applicationDocumentService.UpdateAsync(obj));
@@ -127,7 +127,7 @@ public class DocumentController : ApiControllerBase
 	[HttpPatch]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Patch([FromBody] DocumentPatchDto obj)
+	public async Task<IActionResult> Patch([FromBody] DocumentPatchModel obj)
 	{
 		_logger.LogInformation("Begin Request for Update Paid from {obj}", obj);
 		return ServiceResponse(await _applicationDocumentService.PatchAsync(obj));

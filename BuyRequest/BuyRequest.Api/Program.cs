@@ -1,13 +1,14 @@
 global using AutoMapper;
 using BuyRequest.Api.Extentions;
 using BuyRequest.Data;
-using BuyRequest.Domain.Models;
-using BuyRequest.Domain.Models.Validations;
+using BuyRequest.Domain.Entities;
+using BuyRequest.Domain.Entities.Validations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Shared.Messaging.Settings;
 using MessageBroker.Settings.Queue;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +29,9 @@ builder.Services.AddDbContext<BuyRequestContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 		.UseLoggerFactory(ConsoleLoggerFactory)
-		.EnableSensitiveDataLogging();
+		.LogTo(Console.WriteLine, LogLevel.Information)
+		.EnableSensitiveDataLogging()
+		.EnableDetailedErrors();
 });
 
 builder.Services.AddHttpClient();

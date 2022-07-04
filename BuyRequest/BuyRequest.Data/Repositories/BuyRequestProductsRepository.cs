@@ -1,5 +1,5 @@
 ﻿using BuyRequest.Data.Repositories.Interfaces;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
 using Infrastructure.Shared.Repository;
 using Microsoft.Extensions.Logging;
 

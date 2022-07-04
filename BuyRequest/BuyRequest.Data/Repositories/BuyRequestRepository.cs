@@ -1,5 +1,6 @@
 ﻿using BuyRequest.Data.Repositories.Interfaces;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,7 @@ public class BuyRequestRepository : RepositoryBase<BuyRequests>, IBuyRequestRepo
 		return await query.AsNoTracking().FirstOrDefaultAsync();
 	}
 
-	public virtual async Task<BuyRequests> PatchAsync(BuyRequests obj)
+	public override async Task<BuyRequests> PatchAsync(BuyRequests obj)
 	{
 		_logger.LogInformation("Call change to Status on {obj}", obj);
 		var result = await dbSet

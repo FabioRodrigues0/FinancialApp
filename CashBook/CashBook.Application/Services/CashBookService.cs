@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CashBook.Application.Services.Interface;
 using CashBook.Data.Repositories.Interfaces;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Services;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.Extensions.Logging;
@@ -48,10 +49,10 @@ public class CashBookService : ServiceBase<CashBooks>, ICashBookService
 		return await _cashBookRepository.UpdateAsync(model);
 	}
 
-	public override async Task<(List<CashBooks> list, int totalPages, int page)> GetAllAsync(int page)
+	public override async Task<PagesBase<CashBooks>> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _cashBookRepository.GetAllAsync(page);
-		if (result.list.Count() == 0)
+		var result = await _cashBookRepository.GetAllAsync(page, itemsPerPage);
+		if (result.Models.Count() == 0)
 		{
 			_logger.LogInformation("No Content");
 			NoContent(false);

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using CashBook.Application.Application;
-using CashBook.Application.DTO;
 using CashBook.Application.Map;
+using CashBook.Application.Models;
 using CashBook.Application.Services.Interface;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
+using Infrastructure.Shared.Entities;
 using Moq;
 using Moq.AutoMock;
 using System.Collections.Generic;
@@ -37,18 +38,18 @@ public class CashBookApplicationServiceTest
 		var cashBookFaker = new CashBookFaker();
 		var cashbook = cashBookFaker.cashbook;
 		int totalPages = 1, page = 1;
-		var list = (new List<CashBooks>(), totalPages, page);
+		var list = new PagesBase<CashBooks> { };
 
 		var repository = Mocker.GetMock<ICashBookService>();
-		repository.Setup(x => x.GetAllAsync(page)).ReturnsAsync(list);
+		repository.Setup(x => x.GetAllAsync(page, 10)).ReturnsAsync(list);
 
 		var service = Mocker.CreateInstance<ApplicationCashBookService>();
 
 		//Act
-		await service.GetAllAsync(page);
+		await service.GetAllAsync(page, 10);
 
 		//Assert
-		repository.Verify(x => x.GetAllAsync(page), Times.Once);
+		repository.Verify(x => x.GetAllAsync(page, 10), Times.Once);
 	}
 
 	[Fact]
@@ -99,7 +100,7 @@ public class CashBookApplicationServiceTest
 		var cashBookFaker = new CashBookFaker();
 		var cashbook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookDto>(cashbook);
+		var result = _mapper.Map<CashBookModel>(cashbook);
 
 		var repository = Mocker.GetMock<ICashBookService>();
 		repository.Setup(x => x.AddAsync(cashbook));
@@ -125,7 +126,7 @@ public class CashBookApplicationServiceTest
 		var cashBookFaker = new CashBookFaker();
 		var cashbook = cashBookFaker.cashbook;
 
-		var result = _mapper.Map<CashBookUpdateDto>(cashbook);
+		var result = _mapper.Map<CashBookUpdateModel>(cashbook);
 
 		var repository = Mocker.GetMock<ICashBookService>();
 		repository.Setup(x => x.GetByIdAsync(cashbook.Id)).ReturnsAsync(cashbook);

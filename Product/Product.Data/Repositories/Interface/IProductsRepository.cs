@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Shared.Repository.Interface;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 
 namespace Product.Data.Repositories.Interface;
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BuyRequest.Application.DTO;
 using BuyRequest.Application.Map;
+using BuyRequest.Application.Models;
 using BuyRequest.UnitTest.BuyRequestTest;
 using Moq.AutoMock;
 using Shouldly;
@@ -34,7 +34,7 @@ public class AutoMapperTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = BuyRequestFaker.buyRequestProducts.Generate();
 
-		var result = _mapper.Map<BuyRequestProductDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestProductModel>(buyRequest);
 
 		result.ShouldNotBeNull();
 		result.ShouldSatisfyAllConditions(
@@ -51,7 +51,7 @@ public class AutoMapperTest
 		var buyRequestFaker = new BuyRequestFaker();
 		var buyRequest = buyRequestFaker.buyRequest;
 
-		var result = _mapper.Map<BuyRequestDto>(buyRequest);
+		var result = _mapper.Map<BuyRequestModel>(buyRequest);
 
 		result.ShouldNotBeNull();
 		result.ShouldSatisfyAllConditions(

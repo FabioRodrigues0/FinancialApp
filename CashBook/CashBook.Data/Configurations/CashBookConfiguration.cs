@@ -1,4 +1,4 @@
-﻿using CashBook.Domain.Models;
+﻿using CashBook.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

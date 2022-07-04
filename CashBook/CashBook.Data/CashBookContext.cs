@@ -1,5 +1,5 @@
 ﻿using CashBook.Data.Configurations;
-using CashBook.Domain.Models;
+using CashBook.Domain.Entities;
 using Infrastructure.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,6 +1,6 @@
 ﻿using Bogus;
-using CashBook.Application.DTO;
-using CashBook.Domain.Models;
+using CashBook.Application.Models;
+using CashBook.Domain.Entities;
 using Infrastructure.Shared.Enums;
 using System;
 
@@ -17,7 +17,7 @@ public class CashBookFaker
 		.RuleFor(x => x.Valor, x => x.Random.Decimal(1, 30))
 		.RuleFor(x => x.IsEdited, true);
 
-	public CashBookDto cashbookDto = new Faker<CashBookDto>()
+	public CashBookModel cashbookDto = new Faker<CashBookModel>()
 		.RuleFor(x => x.Origin, x => x.PickRandom<Origin>())
 		.RuleFor(x => x.OriginId, Guid.NewGuid)
 		.RuleFor(x => x.Description, x => x.Random.String(1, 256))

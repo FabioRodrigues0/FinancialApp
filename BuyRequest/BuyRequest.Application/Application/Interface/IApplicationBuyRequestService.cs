@@ -1,21 +1,21 @@
-﻿using BuyRequest.Application.DTO;
-using BuyRequest.Domain.Models;
+﻿using BuyRequest.Application.Models;
+using BuyRequest.Domain.Entities;
 
 namespace BuyRequest.Application.Application.Interface;
 
 public interface IApplicationBuyRequestService
 {
-	Task<BuyRequests> AddAsync(BuyRequestDto obj);
+	Task<BuyRequests> AddAsync(BuyRequestModel obj);
 
-	Task<BuyRequestDto> GetByIdAsync(Guid id);
+	Task<BuyRequestModel> GetByIdAsync(Guid id);
 
-	Task<BuyRequestDto> GetByClientIdAsync(Guid id);
+	Task<BuyRequestModel> GetByClientIdAsync(Guid id);
 
-	Task<PagesBuyRequestDto> GetAllAsync(int page);
+	Task<PagesBuyRequestModel> GetAllAsync(int page, int itemsPerPage);
 
-	Task<BuyRequests> UpdateAsync(BuyRequestUpdateDto obj);
+	Task<BuyRequests> UpdateAsync(BuyRequestUpdateModel obj);
 
-	Task<BuyRequests> PatchAsync(BuyRequestPatchDto obj);
+	Task<BuyRequests> PatchAsync(BuyRequestPatchModel obj);
 
 	Task<bool> RemoveAsync(Guid id);
 }

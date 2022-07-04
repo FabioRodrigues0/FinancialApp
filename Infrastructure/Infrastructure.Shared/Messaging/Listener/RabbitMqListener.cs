@@ -13,7 +13,6 @@ namespace Infrastructure.Shared.Messaging.Listener
 	{
 		#region Vars
 
-		private readonly IServiceProvider _services;
 		private readonly ILogger<RabbitMqListener> _logger;
 		private readonly IRabbitMQConnectionFactory _factory;
 		private readonly RabbitMqOptions _options;
@@ -28,12 +27,10 @@ namespace Infrastructure.Shared.Messaging.Listener
 		#endregion Vars
 
 		public RabbitMqListener(
-			IServiceProvider services,
 			ILogger<RabbitMqListener> logger,
 			IOptions<RabbitMqOptions> options,
 			IRabbitMQConnectionFactory factory)
 		{
-			_services = services;
 			_logger = logger;
 			_factory = factory;
 			_options = options.Value;
@@ -69,7 +66,7 @@ namespace Infrastructure.Shared.Messaging.Listener
 
 			_channel.QueueBind(queue: queueName, exchange: queueName, routingKey: routingKey);
 
-			_logger.LogInformation("{time} [INFO] - Waiting for messages", DateTime.Now);
+			_logger.LogInformation("[INFO] - Waiting for messages");
 
 			_consumer = new EventingBasicConsumer(_channel);
 			_consumer.Received += async (model, ea) =>
@@ -78,7 +75,7 @@ namespace Infrastructure.Shared.Messaging.Listener
 				{
 					var body = ea.Body.ToArray();
 					var message = Encoding.UTF8.GetString(body);
-					var result = await SendToApplication(message);
+					await SendToApplication(message);
 					_channel.BasicAck(ea.DeliveryTag, false);
 				}
 				catch (Exception ex)

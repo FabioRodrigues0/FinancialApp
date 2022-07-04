@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Product.Data.Configurations;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 
 namespace Product.Data;
 

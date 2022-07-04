@@ -1,4 +1,4 @@
-﻿using CashBook.Application.DTO;
+﻿using CashBook.Application.Models;
 using Infrastructure.Shared.Messaging.Publisher;
 using Infrastructure.Shared.Messaging.Settings;
 using Infrastructure.Shared.Messaging.Settings.Interface;
@@ -8,11 +8,11 @@ using Microsoft.Extensions.Options;
 
 namespace MessageBroker.Publisher;
 
-public class CashBookPublisher : RabbitMqPublisher<CashBookDto>, ICashBookPublisher
+public class CashBookPublisher : RabbitMqPublisher<CashBookModel>, ICashBookPublisher
 {
 	public CashBookPublisher(
 		IOptions<RabbitMqOptions> options,
-		ILogger<RabbitMqPublisher<CashBookDto>> logger,
+		ILogger<RabbitMqPublisher<CashBookModel>> logger,
 		IRabbitMQConnectionFactory factory) : base(options, logger, factory)
 	{
 	}

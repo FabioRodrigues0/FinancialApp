@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
 using Stock.Application.DTO;
 
 namespace BuyRequest.Application.Map

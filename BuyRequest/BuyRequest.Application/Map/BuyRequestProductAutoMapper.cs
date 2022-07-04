@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BuyRequest.Application.DTO;
-using BuyRequest.Domain.Models;
+using BuyRequest.Application.Models;
+using BuyRequest.Domain.Entities;
 
 namespace BuyRequest.Application.Map;
 
@@ -8,10 +8,10 @@ public class BuyRequestProductAutoMapper : Profile
 {
 	public BuyRequestProductAutoMapper()
 	{
-		CreateMap<BuyRequestProductDto, BuyRequestProducts>()
+		CreateMap<BuyRequestProductModel, BuyRequestProducts>()
 			.ForMember(to => to.Total, from => from.MapFrom(x => x.Valor * x.Quantity))
 			.ReverseMap();
-		CreateMap<BuyRequestProductUpdateDto, BuyRequestProducts>()
+		CreateMap<BuyRequestProductUpdateModel, BuyRequestProducts>()
 			.ForMember(to => to.Total, from => from.MapFrom(x => x.Valor * x.Quantity))
 			.ReverseMap();
 	}

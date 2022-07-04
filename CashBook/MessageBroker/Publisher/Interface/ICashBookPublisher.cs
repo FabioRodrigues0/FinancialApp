@@ -1,8 +1,8 @@
-﻿using CashBook.Application.DTO;
+﻿using CashBook.Application.Models;
 using Infrastructure.Shared.Messaging.Publisher.Interface;
 
 namespace MessageBroker.Publisher.Interface;
 
-public interface ICashBookPublisher : IRabbitMqPublisher<CashBookDto>
+public interface ICashBookPublisher : IRabbitMqPublisher<CashBookModel>
 {
 }

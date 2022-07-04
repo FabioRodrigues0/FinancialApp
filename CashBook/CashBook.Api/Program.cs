@@ -1,7 +1,10 @@
-global using CashBook.Domain.Models;
+global using CashBook.Domain.Entities;
 using CashBook.Api.Extentions;
 using CashBook.Data;
-using CashBook.Domain.Models.Validations;
+
+using CashBook.Domain.Entities;
+
+using CashBook.Domain.Entities.Validations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Shared.Messaging.Settings;
@@ -32,8 +35,8 @@ builder.Services.AddDbContext<CashBookContext>(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddService();
 builder.Services.AddMapper();
-builder.Services.AddConsumer();
 builder.Services.AddListener(builder.Configuration);
+builder.Services.AddConsumer();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Infrastructure.Shared.Enums;
 using Product.Application.Application.Interface;
-using Product.Application.DTO;
+using Product.Application.Models;
 using Product.Application.Services.Interface;
-using Product.Domain.Models;
+using Product.Domain.Entities;
 
 namespace Product.Application.Application;
 
@@ -20,39 +20,35 @@ public class ApplicationProductsService : IApplicationProductsService
 		_mapper = mapper;
 	}
 
-	public async Task<Products> AddAsync(ProductsDto obj)
+	public async Task<Products> AddAsync(ProductsModel obj)
 	{
 		var result = _mapper.Map<Products>(obj);
 		return await _productsService.AddAsync(result);
 	}
 
-	public async Task<ProductsDto> GetByIdAsync(Guid id)
+	public async Task<ProductsModel> GetByIdAsync(Guid id)
 	{
 		var result = await _productsService.GetByIdAsync(id);
-		return _mapper.Map<ProductsDto>(result);
+		return _mapper.Map<ProductsModel>(result);
 	}
 
-	public async Task<PagesGetCategoryProductsDto> GetByCategoryAsync(ProductCategory category, int page)
+	public async Task<PagesGetCategoryProductsModel> GetByCategoryAsync(ProductCategory category, int page, int itemsPerPage)
 	{
-		var result = await _productsService.GetByCategoryAsync(category, page);
-		if (result.list.Count == 0)
+		var result = await _productsService.GetByCategoryAsync(category, page, itemsPerPage);
+		if (result.Models.Count == 0)
 			return null;
-		var toDto = _mapper.Map<List<ProductsCategoryDto>>(result.list);
-		var newResult = (toDto, result.totalPages, result.page);
-		return _mapper.Map<PagesGetCategoryProductsDto>(newResult);
+		return _mapper.Map<PagesGetCategoryProductsModel>(result);
 	}
 
-	public async Task<PagesGetAllProductsDto> GetAllAsync(int page)
+	public async Task<PagesGetAllProductsModel> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _productsService.GetAllAsync(page);
-		if (result.list.Count == 0)
+		var result = await _productsService.GetAllAsync(page, itemsPerPage);
+		if (result.Models.Count == 0)
 			return null;
-		var toDto = _mapper.Map<List<ProductsWithIdDto>>(result.list);
-		var newResult = (toDto, result.totalPages, page);
-		return _mapper.Map<PagesGetAllProductsDto>(newResult);
+		return _mapper.Map<PagesGetAllProductsModel>(result);
 	}
 
-	public async Task<Products> UpdateAsync(ProductsWithIdDto obj)
+	public async Task<Products> UpdateAsync(ProductsWithIdModel obj)
 	{
 		var result = _mapper.Map<Products>(obj);
 		return await _productsService.UpdateAsync(result);

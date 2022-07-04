@@ -1,4 +1,4 @@
-﻿using BuyRequest.Domain.Models;
+﻿using BuyRequest.Domain.Entities;
 using Infrastructure.Shared.Repository.Interface;
 
 namespace BuyRequest.Data.Repositories.Interfaces;

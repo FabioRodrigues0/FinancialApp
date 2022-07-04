@@ -29,8 +29,8 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
-        depends_on:
-            - rabbitmq
+        #depends_on:
+        #    - rabbitmq
         ports:
             - 8011:80
             - 8012:443
@@ -46,8 +46,8 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
-        depends_on:
-            - rabbitmq
+        #depends_on:
+        #    - rabbitmq
         ports:
             - 8021:80
             - 8022:443
@@ -63,8 +63,8 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ASPNETCORE_URL=http://+"
-        depends_on:
-            - rabbitmq
+        #depends_on:
+        #    - rabbitmq
         ports:
             - 8031:80
             - 8032:443
@@ -84,14 +84,14 @@ services:
             - 8041:80
             - 8042:443
 
-    rabbitmq:
-        image: rabbitmq:3-management
-        container_name: rabbitmq
-        networks:
-            - backend
-        environment:
-            RABBITMQ_DEFAULT_USER: guest
-            RABBITMQ_DEFAULT_PASS: guest
-        ports:
-            - 15672:15672
-            - 5672:5672
+    #rabbitmq:
+    #    image: rabbitmq:3-management
+    #    container_name: rabbitmq
+    #    networks:
+    #        - backend
+    #    environment:
+    #        RABBITMQ_DEFAULT_USER: guest
+    #        RABBITMQ_DEFAULT_PASS: guest
+    #    ports:
+    #        - 15672:15672
+    #        - 5672:5672

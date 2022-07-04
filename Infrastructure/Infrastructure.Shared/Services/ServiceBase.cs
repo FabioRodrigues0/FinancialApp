@@ -1,5 +1,5 @@
 ﻿using FluentValidation.Results;
-using Infrastructure.Shared.Models;
+using Infrastructure.Shared.Entities;
 using Infrastructure.Shared.Repository.Interface;
 using Infrastructure.Shared.Services.Interface;
 using Microsoft.Extensions.Logging;
@@ -32,9 +32,9 @@ namespace Infrastructure.Shared.Services
 			return await _tEntityRepository.GetByIdAsync(id);
 		}
 
-		public virtual async Task<(List<T> list, int totalPages, int page)> GetAllAsync(int page)
+		public virtual async Task<PagesBase<T>> GetAllAsync(int page, int itemsPerPage)
 		{
-			return await _tEntityRepository.GetAllAsync(page);
+			return await _tEntityRepository.GetAllAsync(page, itemsPerPage);
 		}
 
 		public virtual async Task<T> UpdateAsync(T obj)

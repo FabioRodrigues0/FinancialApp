@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
-using BuyRequest.Domain.Models;
-using CashBook.Application.DTO;
+using BuyRequest.Domain.Entities;
 using Infrastructure.Shared.Enums;
 using Stock.Application.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuyRequest.Application.Map
 {
@@ -22,6 +16,5 @@ namespace BuyRequest.Application.Map
 				.ForMember(to => to.ProductsMovements, from => from.MapFrom(x => x.Products))
 				.ReverseMap();
 		}
-		
 	}
 }

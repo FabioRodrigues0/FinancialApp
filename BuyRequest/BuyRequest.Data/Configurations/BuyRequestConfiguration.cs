@@ -1,4 +1,4 @@
-﻿using BuyRequest.Domain.Models;
+﻿using BuyRequest.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

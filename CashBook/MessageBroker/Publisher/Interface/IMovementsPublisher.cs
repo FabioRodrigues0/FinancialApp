@@ -1,4 +1,4 @@
-﻿using CashBook.Application.DTO;
+﻿using CashBook.Application.Models;
 using Infrastructure.Shared.Messaging.Publisher.Interface;
 using Stock.Application.DTO;
 using System;

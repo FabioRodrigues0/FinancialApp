@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BuyRequest.Application.Application.Interface;
-using BuyRequest.Application.DTO;
+using BuyRequest.Application.Models;
 using BuyRequest.Application.Services.Interfaces;
-using BuyRequest.Domain.Models;
+using BuyRequest.Domain.Entities;
 
 namespace BuyRequest.Application.Application;
 
@@ -19,41 +19,39 @@ public class ApplicationBuyRequestService : IApplicationBuyRequestService
 		_mapper = mapper;
 	}
 
-	public async Task<BuyRequests> AddAsync(BuyRequestDto obj)
+	public async Task<BuyRequests> AddAsync(BuyRequestModel obj)
 	{
 		var result = _mapper.Map<BuyRequests>(obj);
 		return await _buyRequestService.AddAsync(result);
 	}
 
-	public async Task<BuyRequestDto> GetByIdAsync(Guid id)
+	public async Task<BuyRequestModel> GetByIdAsync(Guid id)
 	{
 		var buyRequests = await _buyRequestService.GetByIdAsync(id);
-		return _mapper.Map<BuyRequestDto>(buyRequests);
+		return _mapper.Map<BuyRequestModel>(buyRequests);
 	}
 
-	public async Task<BuyRequestDto> GetByClientIdAsync(Guid id)
+	public async Task<BuyRequestModel> GetByClientIdAsync(Guid id)
 	{
 		var buyRequests = await _buyRequestService.GetByClientIdAsync(id);
-		return _mapper.Map<BuyRequestDto>(buyRequests);
+		return _mapper.Map<BuyRequestModel>(buyRequests);
 	}
 
-	public async Task<PagesBuyRequestDto> GetAllAsync(int page)
+	public async Task<PagesBuyRequestModel> GetAllAsync(int page, int itemsPerPage)
 	{
-		var result = await _buyRequestService.GetAllAsync(page);
-		if (result.list.Count == 0)
+		var result = await _buyRequestService.GetAllAsync(page, itemsPerPage);
+		if (result.Models.Count == 0)
 			return null;
-		var toDto = _mapper.Map<List<BuyRequestDto>>(result.list);
-		var newResult = (toDto, result.totalPages, page);
-		return _mapper.Map<PagesBuyRequestDto>(newResult);
+		return _mapper.Map<PagesBuyRequestModel>(result);
 	}
 
-	public async Task<BuyRequests> UpdateAsync(BuyRequestUpdateDto obj)
+	public async Task<BuyRequests> UpdateAsync(BuyRequestUpdateModel obj)
 	{
 		var result = _mapper.Map<BuyRequests>(obj);
 		return await _buyRequestService.UpdateAsync(result);
 	}
 
-	public async Task<BuyRequests> PatchAsync(BuyRequestPatchDto obj)
+	public async Task<BuyRequests> PatchAsync(BuyRequestPatchModel obj)
 	{
 		var result = _mapper.Map<BuyRequests>(obj);
 		return await _buyRequestService.PatchAsync(result);
